@@ -3,10 +3,7 @@ import "./globals.css";
 import { Geist, Geist_Mono } from "next/font/google";
 
 import Header from "./components/Header";
-import { Josefin_Sans } from "next/font/google";
 import type { Metadata } from "next";
-
-const josefin = Josefin_Sans({ subsets: ["latin"], weight: "400" });
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

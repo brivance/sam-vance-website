@@ -33,76 +33,59 @@ const phrases = [
 
 function Hero() {
   const [index, setIndex] = useState(0);
-  const [showPhrases, setShowPhrases] = useState(false); // 👈 new state for delay
+  const [hasLoaded, setHasLoaded] = useState(false);
 
   useEffect(() => {
-    // Wait a few seconds before starting the phrase cycle
-    const startDelay = setTimeout(() => {
-      setShowPhrases(true);
-    }, 1400); // <-- delay in ms before first phrase appears
-
-    return () => clearTimeout(startDelay);
+    const timer = setTimeout(() => setHasLoaded(true), 5000); // 5s initial delay
+    return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
-    if (!showPhrases) return; // Don't start interval until after delay
     const interval = setInterval(() => {
       setIndex((prev) => (prev + 1) % phrases.length);
     }, 3000); // duration before switching (ms)
     return () => clearInterval(interval);
-  }, [phrases.length, showPhrases]);
+  }, [phrases.length]);
 
   return (
-    <section className="relative h-[100vh] flex items-center justify-center font-sans font-medium isolate pt-20 pb-14 w-full">
-      {/* Background image */}
-      {/* <Image
-        src="/bnw-beach3.png"
-        alt=""
-        fill
-        priority
-        className="-z-10 object-cover object-center blur-xs"
-      /> */}
-      {/* Content */}
-      <div className="flex flex-col justify-center w-full px-[5%]">
+    <section className="relative h-[100vh] flex justify-start font-sans font-medium isolate pt-20 pb-14">
+      <div className="flex flex-col px-[5%] mt-[10vh] w-2/3">
         <div className="flex justify-center w-full">
-          {/* <motion.div
-            initial={{ opacity: 1, y: 0, x: -60 }}
-            animate={{ opacity: 1, y: 0, x: 0 }}
-            transition={{ duration: 1.3 }}
-            className="w-[45%]"
-          >
-            <Image src="/sam-vance2.png" alt="" width={480} height={480} />
-          </motion.div> */}
           <div className="flex flex-col justify-center pb-3 pt-4 items-center w-[55%]">
-            <div className={`${dmSerif.className} text-9xl font-extrabold text-center whitespace-nowrap`}><Typewriter text={text} /></div>
-            {showPhrases ? (
-              <AnimatePresence mode="wait">
-                <motion.p
-                  key={phrases[index]}
-                  className={`${josefin.className} mt-4 text-4xl text-center font-bold tracking-wider opacity-0`}
-                  initial={{ opacity: 0, y: 0 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 0 }}
-                  transition={{
-                    opacity: { duration: 0.5, ease: "easeInOut" },
-                    y: { duration: 0.5, ease: "easeInOut" },
-                  }}
-                >
-                  {phrases[index]}
-                </motion.p>
-              </AnimatePresence>
-            ) :
-              (
-                <span className="mt-4 text-4xl font-bold opacity-0">R</span>
-              )}
+            <motion.div
+              initial={{ opacity: 1, x: 125, y: 80 }} // Start slightly above and invisible
+              animate={{ opacity: 1, x: 0, y: 0 }}
+              transition={{ delay: 2.2, duration: 2 }}
+            >
+              <span className={`${dmSerif.className} text-9xl font-extrabold text-center whitespace-nowrap`}><Typewriter text={text} /></span>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 0 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 4 }}
+            >
+              <motion.p
+                key={phrases[index]}
+                className={`${josefin.className} mt-4 text-4xl text-center font-bold tracking-wider opacity-0`}
+                initial={{ opacity: 0, y: 0 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 0 }}
+                transition={{
+                  opacity: { duration: 0.5, ease: "easeInOut" },
+                  y: { duration: 0.5, ease: "easeInOut" },
+                }}
+              >
+                {phrases[index]}
+              </motion.p>
+            </motion.div>
           </div>
         </div>
-        <motion.div
-          className="mt-[8%] mx-auto text-center"
+        {/* <motion.div
+          className="mt-[8%]"
           initial={{ opacity: 0, y: -60, scale: 2 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{
-            delay: 3,
+            delay: 5,
             type: "spring",
             stiffness: 120,
             damping: 12,
@@ -112,8 +95,106 @@ function Hero() {
           <button className={`${josefin.className} px-8 py-3 rounded-lg bg-dark-brown text-white font-semibold text-2xl transition`}>
             some call to action -{'>'}
           </button>
-        </motion.div>
+        </motion.div> */}
       </div>
+      <motion.div
+        initial={{ opacity: 0, y: 60, x: 30 }}
+        whileInView={{ opacity: 1, y: 0, x: 0 }}
+        transition={{ delay: hasLoaded ? 0 : 2.2, duration: hasLoaded ? .75 : 2, ease: "easeOut" }}
+        className="absolute bottom-[25%] left-[40%] translate-x-1/2"
+        viewport={{ once: false, amount: 0.5 }}
+      >
+        <Image
+          src="/sam-vance2.png"
+          alt="example"
+          width={380}
+          height={380}
+        />
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0, y: 60, x: 30 }}
+        whileInView={{ opacity: 1, y: 0, x: 0 }}
+        transition={{ delay: hasLoaded ? 0 : 2.4, duration: hasLoaded ? .75 : 2, ease: "easeOut" }}
+        viewport={{ once: false, amount: 0.5 }}
+        className="absolute bottom-[50%] right-[11%] translate-x-1/2"
+      >
+        <Image
+          src="/legs.png"
+          alt="example"
+          width={200}
+          height={200}
+        />
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0, y: 60, x: 30 }}
+        whileInView={{ opacity: 1, y: 0, x: 0 }}
+        transition={{ delay: hasLoaded ? 0 : 2.45, duration: hasLoaded ? .75 : 2, ease: "easeOut" }}
+        viewport={{ once: false, amount: 0.5 }}
+        className="absolute bottom-[5%] right-[13%] translate-x-1/2"
+      >
+        <Image
+          src="/light-painting-robot.png"
+          alt="example"
+          width={200}
+          height={200}
+        />
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0, y: 60, x: 30 }}
+        whileInView={{ opacity: 1, y: 0, x: 0 }}
+        viewport={{ once: false, amount: 0.5 }}
+        transition={{ delay: hasLoaded ? 0 : 2.55, duration: hasLoaded ? .75 : 2, ease: "easeOut" }}
+        className="absolute bottom-[5%] right-[35%] translate-x-1/2"
+      >
+        <Image
+          src="/piano-game.png"
+          alt="example"
+          width={250}
+          height={250}
+        />
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0, y: 60, x: 30 }}
+        whileInView={{ opacity: 1, y: 0, x: 0 }}
+        viewport={{ once: false, amount: 0.5 }}
+        transition={{ delay: hasLoaded ? 0 : 2.65, duration: hasLoaded ? .75 : 2, ease: "easeOut" }}
+        className="absolute bottom-[7%] right-[57%] translate-x-1/2"
+      >
+        <Image
+          src="/sam-plays-flute.png"
+          alt="example"
+          width={170}
+          height={170}
+        />
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0, y: 60, x: 30 }}
+        whileInView={{ opacity: 1, y: 0, x: 0 }}
+        viewport={{ once: false, amount: 0.5 }}
+        transition={{ delay: hasLoaded ? 0 : 2.7, duration: hasLoaded ? .75 : 2, ease: "easeOut" }}
+        className="absolute bottom-[60%] right-[27%] translate-x-1/2"
+      >
+        <Image
+          src="/flying-robot.png"
+          alt="example"
+          width={200}
+          height={200}
+        />
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0, y: 60, x: 30 }}
+        whileInView={{ opacity: 1, y: 0, x: 0 }}
+        viewport={{ once: false, amount: 0.5 }}
+        transition={{ delay: hasLoaded ? 0 : 2.8, duration: hasLoaded ? .75 : 2, ease: "easeOut" }}
+        className="absolute bottom-[15%] right-[75%] translate-x-1/2"
+      >
+        <Image
+          src="/plane.png"
+          alt="example"
+          width={200}
+          height={200}
+        />
+      </motion.div>
     </section>
   );
 }
@@ -164,7 +245,7 @@ function OverlapSection() {
   return (
     <section
       ref={ref}
-      className="relative flex items-center justify-center bg-blackish py-32 overflow-hidden"
+      className="relative flex items-center justify-center bg-blackish"
     >
       <div className="flex items-center justify-center w-[80%] relative">
         {/* Text side */}
