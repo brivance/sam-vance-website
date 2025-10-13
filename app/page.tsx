@@ -21,14 +21,34 @@ export default function Home() {
   );
 }
 
-const text = "SAM VANCE";
+const initialDelay = 4.4; // seconds before first slide appears
+
+const slides: Slide[] = [
+  { src: "/flying-robot.png", alt: "", initialDelay: initialDelay },
+  { src: "/legs.png", alt: "", initialDelay: initialDelay + 0.15 },
+  { src: "/light-painting-robot.png", alt: "", initialDelay: initialDelay + 0.3 },
+  { src: "/piano-game.png", alt: "", initialDelay: initialDelay + 0.45 },
+  { src: "/plane.png", alt: "", initialDelay: initialDelay + 0.6 },
+  { src: "/sam-plays-flute.png", alt: "", initialDelay: initialDelay + 0.75 },
+  { src: "/legs-sprint.png", alt: "", initialDelay: initialDelay + 0.9 },
+  // { src: "/Asset-8.png", alt: "" },
+  // { src: "/Asset-16.png", alt: "" },
+  // { src: "/Asset-7.png", alt: "" },
+  // { src: "/Asset-2.png", alt: "" },
+  // { src: "/Asset-9.png", alt: "" },
+  // { src: "/Asset-13.png", alt: "" },
+  // { src: "/Asset-1.png", alt: "" },
+  // { src: "/Asset-17.png", alt: "" },
+  // { src: "/Asset-3.png", alt: "" },
+  // { src: "/Asset-19.png", alt: "" },
+];
 
 const phrases = [
-  "software engineer",
+  "mathematician",
   "robotics engineer",
+  "software engineer",
   "innovator",
   "genius",
-  "mathematician",
 ];
 
 function Hero() {
@@ -43,158 +63,79 @@ function Hero() {
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex((prev) => (prev + 1) % phrases.length);
-    }, 3000); // duration before switching (ms)
+    }, 3300); // duration before switching (ms)
     return () => clearInterval(interval);
   }, [phrases.length]);
 
   return (
-    <section className="relative h-[100vh] flex justify-start font-sans font-medium isolate pt-20 pb-14">
-      <div className="flex flex-col px-[5%] mt-[10vh] w-2/3">
-        <div className="flex justify-center w-full">
-          <div className="flex flex-col justify-center pb-3 pt-4 items-center w-[55%]">
+    <section className="relative h-[100vh] font-sans font-medium pt-20 pb-14">
+      <div className="flex flex-col px-[5%] mt-[10vh] w-full">
+        <div className="flex justify-center gap-14 w-full">
+          <div className="flex flex-col justify-center pb-3 pt-4 text-center">
             <motion.div
               initial={{ opacity: 1, x: 125, y: 80 }} // Start slightly above and invisible
               animate={{ opacity: 1, x: 0, y: 0 }}
-              transition={{ delay: 2.2, duration: 2 }}
+              transition={{ delay: 2.2, duration: 2.5 }}
             >
-              <span className={`${dmSerif.className} text-9xl font-extrabold text-center whitespace-nowrap`}><Typewriter text={text} /></span>
+              <span className={`${dmSerif.className} text-9xl font-extrabold text-center whitespace-nowrap`}><Typewriter text="SAM VANCE" /></span>
             </motion.div>
             <motion.div
               initial={{ opacity: 0, y: 0 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 4 }}
+              transition={{ delay: 3.7 }}
             >
-              <motion.p
-                key={phrases[index]}
-                className={`${josefin.className} mt-4 text-4xl text-center font-bold tracking-wider opacity-0`}
-                initial={{ opacity: 0, y: 0 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 0 }}
-                transition={{
-                  opacity: { duration: 0.5, ease: "easeInOut" },
-                  y: { duration: 0.5, ease: "easeInOut" },
-                }}
-              >
-                {phrases[index]}
-              </motion.p>
+              <AnimatePresence mode="wait">
+                <motion.p
+                  key={phrases[index]}
+                  className={`${josefin.className} mt-4 text-4xl text-center font-bold tracking-wider`}
+                  initial={{ opacity: 0, y: 0 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 0 }}
+                  transition={{
+                    opacity: { duration: .5, ease: "easeInOut" },
+                    y: { duration: .5, ease: "easeInOut" },
+                  }}
+                >
+                  {phrases[index]}
+                </motion.p>
+              </AnimatePresence>
             </motion.div>
           </div>
+          <motion.div
+            initial={{ opacity: 0, y: 40, x: 100 }}
+            whileInView={{ opacity: 1, y: 0, x: 0 }}
+            transition={{ delay: hasLoaded ? 0 : 2.2, duration: hasLoaded ? .75 : 2.5, ease: "easeOut" }}
+            className=""
+            viewport={{ once: false, amount: 0.5 }}
+          >
+            <Image
+              src="/sam-vance2.png"
+              alt="example"
+              width={380}
+              height={380}
+            // className="hover:scale-110 transition-transform duration-500"
+            />
+          </motion.div>
         </div>
-        {/* <motion.div
-          className="mt-[8%]"
-          initial={{ opacity: 0, y: -60, scale: 2 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{
-            delay: 5,
-            type: "spring",
-            stiffness: 120,
-            damping: 12,
-            mass: 0.8,
-          }}
-        >
-          <button className={`${josefin.className} px-8 py-3 rounded-lg bg-dark-brown text-white font-semibold text-2xl transition`}>
-            some call to action -{'>'}
-          </button>
-        </motion.div> */}
+        <div className="flex flex-col">
+          <motion.div
+            className="mt-[8%] text-center"
+            initial={{ opacity: 0, y: 0, x: 0 }}
+            whileInView={{ opacity: 1, y: 0, x: 0 }}
+            transition={{ delay: hasLoaded ? 0 : 4, duration: hasLoaded ? .75 : 1, ease: "easeOut" }}
+            viewport={{ once: false, amount: 0.5 }}
+          >
+            <button className={`${josefin.className} text-3xl font-light rounded-4xl hover:border-gray-300 py-2 px-4 border border-white/10 transition-all duration-300 hover:font-medium shadow-[#faf8ed]/30 shadow-[0_0_6px_rgba(255,255,255,0.25)] 
+  hover:bg-[#faf8ed] hover:text-black
+  hover:shadow-[0_0_25px_rgba(255,255,255,0.4)]`}>
+              check out my projects
+            </button>
+          </motion.div>
+          <div className="relative z-10 mx-auto md:mt-8 max-w-5xl px-6">
+            <ProductCarousel slides={slides} hasLoaded={hasLoaded} />
+          </div>
+        </div>
       </div>
-      <motion.div
-        initial={{ opacity: 0, y: 60, x: 30 }}
-        whileInView={{ opacity: 1, y: 0, x: 0 }}
-        transition={{ delay: hasLoaded ? 0 : 2.2, duration: hasLoaded ? .75 : 2, ease: "easeOut" }}
-        className="absolute bottom-[25%] left-[40%] translate-x-1/2"
-        viewport={{ once: false, amount: 0.5 }}
-      >
-        <Image
-          src="/sam-vance2.png"
-          alt="example"
-          width={380}
-          height={380}
-        />
-      </motion.div>
-      <motion.div
-        initial={{ opacity: 0, y: 60, x: 30 }}
-        whileInView={{ opacity: 1, y: 0, x: 0 }}
-        transition={{ delay: hasLoaded ? 0 : 2.4, duration: hasLoaded ? .75 : 2, ease: "easeOut" }}
-        viewport={{ once: false, amount: 0.5 }}
-        className="absolute bottom-[50%] right-[11%] translate-x-1/2"
-      >
-        <Image
-          src="/legs.png"
-          alt="example"
-          width={200}
-          height={200}
-        />
-      </motion.div>
-      <motion.div
-        initial={{ opacity: 0, y: 60, x: 30 }}
-        whileInView={{ opacity: 1, y: 0, x: 0 }}
-        transition={{ delay: hasLoaded ? 0 : 2.45, duration: hasLoaded ? .75 : 2, ease: "easeOut" }}
-        viewport={{ once: false, amount: 0.5 }}
-        className="absolute bottom-[5%] right-[13%] translate-x-1/2"
-      >
-        <Image
-          src="/light-painting-robot.png"
-          alt="example"
-          width={200}
-          height={200}
-        />
-      </motion.div>
-      <motion.div
-        initial={{ opacity: 0, y: 60, x: 30 }}
-        whileInView={{ opacity: 1, y: 0, x: 0 }}
-        viewport={{ once: false, amount: 0.5 }}
-        transition={{ delay: hasLoaded ? 0 : 2.55, duration: hasLoaded ? .75 : 2, ease: "easeOut" }}
-        className="absolute bottom-[5%] right-[35%] translate-x-1/2"
-      >
-        <Image
-          src="/piano-game.png"
-          alt="example"
-          width={250}
-          height={250}
-        />
-      </motion.div>
-      <motion.div
-        initial={{ opacity: 0, y: 60, x: 30 }}
-        whileInView={{ opacity: 1, y: 0, x: 0 }}
-        viewport={{ once: false, amount: 0.5 }}
-        transition={{ delay: hasLoaded ? 0 : 2.65, duration: hasLoaded ? .75 : 2, ease: "easeOut" }}
-        className="absolute bottom-[7%] right-[57%] translate-x-1/2"
-      >
-        <Image
-          src="/sam-plays-flute.png"
-          alt="example"
-          width={170}
-          height={170}
-        />
-      </motion.div>
-      <motion.div
-        initial={{ opacity: 0, y: 60, x: 30 }}
-        whileInView={{ opacity: 1, y: 0, x: 0 }}
-        viewport={{ once: false, amount: 0.5 }}
-        transition={{ delay: hasLoaded ? 0 : 2.7, duration: hasLoaded ? .75 : 2, ease: "easeOut" }}
-        className="absolute bottom-[60%] right-[27%] translate-x-1/2"
-      >
-        <Image
-          src="/flying-robot.png"
-          alt="example"
-          width={200}
-          height={200}
-        />
-      </motion.div>
-      <motion.div
-        initial={{ opacity: 0, y: 60, x: 30 }}
-        whileInView={{ opacity: 1, y: 0, x: 0 }}
-        viewport={{ once: false, amount: 0.5 }}
-        transition={{ delay: hasLoaded ? 0 : 2.8, duration: hasLoaded ? .75 : 2, ease: "easeOut" }}
-        className="absolute bottom-[15%] right-[75%] translate-x-1/2"
-      >
-        <Image
-          src="/plane.png"
-          alt="example"
-          width={200}
-          height={200}
-        />
-      </motion.div>
     </section>
   );
 }
@@ -207,7 +148,7 @@ function Body() {
         initial={{ opacity: 0, y: 60 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.2, ease: "easeOut" }}
-        viewport={{ once: false, amount: 0.3 }} // only triggers once when ~30% visible
+        viewport={{ once: false, amount: 0.60 }} // only triggers once when ~30% visible
       >
         <div className="flex gap-5 mx-[15%] py-20 text-[2.75rem] my-30">
           <div className={`${ephesis.className} text-gray-600 text-[200px] -mt-20 mr-5`}>&ldquo;</div>
@@ -240,7 +181,7 @@ function OverlapSection() {
 
   // Parallax transform — image moves slower
   const imageY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
-  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "60%"]);
+  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
 
   return (
     <section
@@ -337,5 +278,94 @@ function OverlapSection2() {
         </motion.div>
       </div>
     </section>
+  );
+}
+
+type Slide = { src: string; alt: string, initialDelay: number };
+
+function ProductCarousel({ slides, hasLoaded }: { slides: Slide[], hasLoaded: boolean }) {
+
+  function useIsMobile(breakpoint = 768) {
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+      const check = () => setIsMobile(window.innerWidth < breakpoint);
+      check();
+      window.addEventListener("resize", check);
+      return () => window.removeEventListener("resize", check);
+    }, [breakpoint]);
+
+    return isMobile;
+  }
+  const isMobile = useIsMobile(768);
+
+  const [index, setIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const DURATION = 4500; // ms per slide
+  const CARDS_TO_SHOW = 5;
+  const CARD_WIDTH = isMobile ? 144 : 176; // w-44 = 176px
+  const GAP = 24; // gap-6 = 26px
+
+  // Advance automatically using a re-arming timeout (avoids drift of setInterval)
+  useEffect(() => {
+    if (slides.length <= CARDS_TO_SHOW || paused) return;
+    const id = setTimeout(() => setIndex((i) => (i + 1) % slides.length), DURATION);
+    return () => clearTimeout(id);
+  }, [index, paused, slides.length]);
+
+  // Pause when tab isn't visible
+  useEffect(() => {
+    const onVis = () => setPaused(document.hidden);
+    document.addEventListener("visibilitychange", onVis);
+    return () => document.removeEventListener("visibilitychange", onVis);
+  }, []);
+
+  // Calculate the transform offset for smooth sliding
+  const offset = -(index * (CARD_WIDTH + GAP));
+
+  return (
+    <div className="relative pb-35">
+      {/* Stage */}
+      <div className="relative w-full max-w-[976px] mx-auto overflow-hidden">
+        <div className="flex justify-center">
+          {/* 5 cards * 176px + 4 gaps * 24px = 976px */}
+          {/* 2 cards * 144px + 1 gaps * 24px = 312px */}
+          <div className="relative w-[312px] md:w-[976px] overflow-hidden">
+            <motion.div
+              className="flex gap-6"
+              animate={{ x: offset }}
+              transition={{ delay: hasLoaded ? 0 : 3, duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+
+              aria-live="polite"
+            >
+              {/* Render extra cards for smooth infinite scrolling */}
+              {[...slides, ...slides.slice(0, CARDS_TO_SHOW)].map((card, i) => (
+                <motion.div
+                  key={i}
+                  className="relative aspect-[3/4] w-36 md:w-44 flex-shrink-0"
+                  initial={{ opacity: 0, x: 200 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{
+                    delay: hasLoaded ? 0 : card.initialDelay ?? 0,
+                    duration: 0.4,
+                    ease: [0.2, 0.8, 0.2, 1.0],
+                  }}
+                >
+                  <Image
+                    src={card.src}
+                    alt={card.alt}
+                    fill
+                    sizes="(min-width: 1024px) 256px, 200px"
+                    className="object-contain rounded-lg shadow-lg"
+                    priority={i < CARDS_TO_SHOW}
+                  />
+                  {/* <div className="absolute inset-0 bg-[#aba79e]/30"></div> */}
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
