@@ -53,10 +53,26 @@ const phrases = [
 
 function Hero() {
   const [index, setIndex] = useState(0);
+  const [playIntro, setPlayIntro] = useState<boolean | null>(null);
   const [hasLoaded, setHasLoaded] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => setHasLoaded(true), 5000); // 5s initial delay
+    const lastShown = localStorage.getItem("introTimestamp");
+    const oneDay = 24 * 60 * 60 * 1000;
+
+    if (!lastShown || Date.now() - Number(lastShown) > oneDay) {
+      setPlayIntro(true);
+      localStorage.setItem("introTimestamp", Date.now().toString());
+    } else {
+      setPlayIntro(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setHasLoaded(true);
+      setPlayIntro(false);
+    }, 5000); // 5s initial delay
     return () => clearTimeout(timer);
   }, []);
 
@@ -67,33 +83,39 @@ function Hero() {
     return () => clearInterval(interval);
   }, [phrases.length]);
 
+  console.log("hasLoaded:", hasLoaded);
+  console.log("playIntro:", playIntro);
+  if (playIntro === null) return null;
+
   return (
     <section className="relative h-[100vh] font-sans font-medium pt-20 pb-14">
       <div className="flex flex-col px-[5%] mt-[10vh] w-full">
         <div className="flex justify-center gap-14 w-full">
           <div className="flex flex-col justify-center pb-3 pt-4 text-center">
             <motion.div
-              initial={{ opacity: 1, x: 125, y: 80 }} // Start slightly above and invisible
+              initial={{ opacity: 1, x: playIntro ? 125 : 80, y: 80 }} // Start slightly above and invisible
               animate={{ opacity: 1, x: 0, y: 0 }}
-              transition={{ delay: 2.2, duration: 2.5 }}
+              transition={{ delay: playIntro ? 2.2 : 0, duration: playIntro ? 2.5 : .7 }}
             >
-              <span className={`${dmSerif.className} text-9xl font-extrabold text-center whitespace-nowrap`}><Typewriter text="SAM VANCE" /></span>
+              <span className={`${dmSerif.className} text-9xl font-extrabold text-center whitespace-nowrap`}>
+                {playIntro ? <Typewriter text="SAM VANCE" /> : <span>SAM VANCE</span>}
+              </span>
             </motion.div>
             <motion.div
               initial={{ opacity: 0, y: 0 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 3.7 }}
+              transition={{ delay: playIntro ? 3.7 : .5 }}
             >
               <AnimatePresence mode="wait">
                 <motion.p
                   key={phrases[index]}
                   className={`${josefin.className} mt-4 text-4xl text-center font-bold tracking-wider`}
-                  initial={{ opacity: 0, y: 0 }}
-                  animate={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0, y: 0, x: 0 }}
+                  animate={{ opacity: 1, y: 0, x: 0 }}
                   exit={{ opacity: 0, y: 0 }}
                   transition={{
-                    opacity: { duration: .5, ease: "easeInOut" },
-                    y: { duration: .5, ease: "easeInOut" },
+                    opacity: { duration: playIntro ? .5 : 0.8, ease: "easeInOut" },
+                    y: { duration: playIntro ? .5 : 0.8, ease: "easeInOut" },
                   }}
                 >
                   {phrases[index]}
@@ -104,7 +126,7 @@ function Hero() {
           <motion.div
             initial={{ opacity: 0, y: 40, x: 100 }}
             whileInView={{ opacity: 1, y: 0, x: 0 }}
-            transition={{ delay: hasLoaded ? 0 : 2.2, duration: hasLoaded ? .75 : 2.5, ease: "easeOut" }}
+            transition={{ delay: playIntro ? 2.2 : 0, duration: playIntro ? 2.5 : 0.75, ease: "easeOut" }}
             className=""
             viewport={{ once: false, amount: 0.5 }}
           >
@@ -113,26 +135,27 @@ function Hero() {
               alt="example"
               width={380}
               height={380}
-            // className="hover:scale-110 transition-transform duration-500"
+              className="hover:scale-105 transition-transform duration-500"
             />
           </motion.div>
         </div>
         <div className="flex flex-col">
           <motion.div
             className="mt-[8%] text-center"
-            initial={{ opacity: 0, y: 0, x: 0 }}
+            initial={{ opacity: 0, y: playIntro ? 0 : 100, x: playIntro ? 0 : 50 }}
             whileInView={{ opacity: 1, y: 0, x: 0 }}
-            transition={{ delay: hasLoaded ? 0 : 4, duration: hasLoaded ? .75 : 1, ease: "easeOut" }}
+            exit={{ opacity: 0, y: 100, x: 50 }}
+            transition={{ delay: playIntro ? 4 : 0, duration: .75, ease: "easeOut" }}
             viewport={{ once: false, amount: 0.5 }}
           >
-            <button className={`${josefin.className} text-3xl font-light rounded-4xl hover:border-gray-300 py-2 px-4 border border-white/10 transition-all duration-300 hover:font-medium shadow-[#faf8ed]/30 shadow-[0_0_6px_rgba(255,255,255,0.25)] 
-  hover:bg-[#faf8ed] hover:text-black
+            <button className={`${josefin.className} text-3xl font-light rounded-4xl hover:border-gray-300 py-2 px-4 border border-white/10 transition-all hover:font-medium shadow-[#faf8ed]/30 shadow-[0_0_6px_rgba(255,255,255,0.25)] 
+  hover:bg-[#faf8ed] hover:text-black hover:scale-105 duration-400 tracking-tighter
   hover:shadow-[0_0_25px_rgba(255,255,255,0.4)]`}>
               check out my projects
             </button>
           </motion.div>
           <div className="relative z-10 mx-auto md:mt-8 max-w-5xl px-6">
-            <ProductCarousel slides={slides} hasLoaded={hasLoaded} />
+            <ProductCarousel slides={slides} hasLoaded={hasLoaded} playIntro={playIntro} />
           </div>
         </div>
       </div>
@@ -180,7 +203,7 @@ function OverlapSection() {
   });
 
   // Parallax transform — image moves slower
-  const imageY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
+  const imageY = useTransform(scrollYProgress, [0, 1], ["0%", "0%"]);
   const textY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
 
   return (
@@ -241,7 +264,7 @@ function OverlapSection2() {
   return (
     <section
       ref={ref}
-      className="relative flex items-center justify-center bg-blackish py-32 overflow-hidden pb-300"
+      className="relative flex items-center justify-center bg-blackish py-32 overflow-visible pb-40"
     >
       <div className="flex items-center justify-center w-[80%] relative">
         {/* Text side */}
@@ -283,7 +306,7 @@ function OverlapSection2() {
 
 type Slide = { src: string; alt: string, initialDelay: number };
 
-function ProductCarousel({ slides, hasLoaded }: { slides: Slide[], hasLoaded: boolean }) {
+function ProductCarousel({ slides, hasLoaded, playIntro }: { slides: Slide[], hasLoaded: boolean, playIntro: boolean | null }) {
 
   function useIsMobile(breakpoint = 768) {
     const [isMobile, setIsMobile] = useState(false);
@@ -326,16 +349,30 @@ function ProductCarousel({ slides, hasLoaded }: { slides: Slide[], hasLoaded: bo
   return (
     <div className="relative pb-35">
       {/* Stage */}
-      <div className="relative w-full max-w-[976px] mx-auto overflow-hidden">
+      <motion.div
+        // Outer wrapper handles visibility (fade in/out) when scrolling
+        initial={{ opacity: 0, y: hasLoaded ? 60 : 0 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: false, amount: 0.4 }}
+        transition={{ duration: 0.8, ease: "easeInOut" }}
+        onViewportLeave={(e) => {
+          // optional: you can log when it fades out
+          // console.log("Gallery scrolled out of view");
+        }}
+        className="relative w-full max-w-[976px] mx-auto overflow-hidden"
+      >
         <div className="flex justify-center">
           {/* 5 cards * 176px + 4 gaps * 24px = 976px */}
           {/* 2 cards * 144px + 1 gaps * 24px = 312px */}
           <div className="relative w-[312px] md:w-[976px] overflow-hidden">
             <motion.div
               className="flex gap-6"
+              // initial={{ opacity: 0, x: 50, y: 80 }}
               animate={{ x: offset }}
-              transition={{ delay: hasLoaded ? 0 : 3, duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-
+              transition={{ delay: playIntro ? 3 : 0, duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+              // whileInView={{ opacity: 1, x: 0, y: 0 }}         // fade/slide in when visible
+              // exit={{ opacity: 0, x: 60 }}
+              // viewport={{ once: false, amount: 0.6 }}
               aria-live="polite"
             >
               {/* Render extra cards for smooth infinite scrolling */}
@@ -346,7 +383,7 @@ function ProductCarousel({ slides, hasLoaded }: { slides: Slide[], hasLoaded: bo
                   initial={{ opacity: 0, x: 200 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{
-                    delay: hasLoaded ? 0 : card.initialDelay ?? 0,
+                    delay: !playIntro ? card.initialDelay - 4.4 : card.initialDelay,
                     duration: 0.4,
                     ease: [0.2, 0.8, 0.2, 1.0],
                   }}
@@ -365,7 +402,7 @@ function ProductCarousel({ slides, hasLoaded }: { slides: Slide[], hasLoaded: bo
             </motion.div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }

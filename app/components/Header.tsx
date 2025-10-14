@@ -28,7 +28,7 @@ export default function Header() {
               </Link>
             </li>
             <li>
-              <Link href="/" className="inline-block hover:scale-110 transition-transform duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 rounded">
+              <Link href="/projects" className="inline-block hover:scale-110 transition-transform duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 rounded">
                 projects
               </Link>
             </li>
