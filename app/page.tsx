@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 
 import Image from "next/image";
 import { Typewriter } from "./components/Typewriter";
+import { useRouter } from "next/navigation";
 
 const josefin = Josefin_Sans({ subsets: ["latin"] });
 // const exo = Exo_2({ subsets: ["latin"] });
@@ -31,16 +32,6 @@ const slides: Slide[] = [
   { src: "/plane.png", alt: "", initialDelay: initialDelay + 0.6 },
   { src: "/sam-plays-flute.png", alt: "", initialDelay: initialDelay + 0.75 },
   { src: "/legs-sprint.png", alt: "", initialDelay: initialDelay + 0.9 },
-  // { src: "/Asset-8.png", alt: "" },
-  // { src: "/Asset-16.png", alt: "" },
-  // { src: "/Asset-7.png", alt: "" },
-  // { src: "/Asset-2.png", alt: "" },
-  // { src: "/Asset-9.png", alt: "" },
-  // { src: "/Asset-13.png", alt: "" },
-  // { src: "/Asset-1.png", alt: "" },
-  // { src: "/Asset-17.png", alt: "" },
-  // { src: "/Asset-3.png", alt: "" },
-  // { src: "/Asset-19.png", alt: "" },
 ];
 
 const phrases = [
@@ -52,6 +43,7 @@ const phrases = [
 ];
 
 function Hero() {
+  const router = useRouter();
   const [index, setIndex] = useState(0);
   const [playIntro, setPlayIntro] = useState<boolean | null>(null);
   const [hasLoaded, setHasLoaded] = useState(false);
@@ -71,7 +63,7 @@ function Hero() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setHasLoaded(true);
-      setPlayIntro(false);
+      // setPlayIntro(false);
     }, 5000); // 5s initial delay
     return () => clearTimeout(timer);
   }, []);
@@ -83,8 +75,6 @@ function Hero() {
     return () => clearInterval(interval);
   }, [phrases.length]);
 
-  console.log("hasLoaded:", hasLoaded);
-  console.log("playIntro:", playIntro);
   if (playIntro === null) return null;
 
   return (
@@ -98,7 +88,7 @@ function Hero() {
               transition={{ delay: playIntro ? 2.2 : 0, duration: playIntro ? 2.5 : .7 }}
             >
               <span className={`${dmSerif.className} text-9xl font-extrabold text-center whitespace-nowrap`}>
-                {playIntro ? <Typewriter text="SAM VANCE" /> : <span>SAM VANCE</span>}
+                <Typewriter text="SAM VANCE" playIntro={playIntro} />
               </span>
             </motion.div>
             <motion.div
@@ -125,17 +115,17 @@ function Hero() {
           </div>
           <motion.div
             initial={{ opacity: 0, y: 40, x: 100 }}
-            whileInView={{ opacity: 1, y: 0, x: 0 }}
+            animate={{ opacity: 1, y: 0, x: 0 }}
             transition={{ delay: playIntro ? 2.2 : 0, duration: playIntro ? 2.5 : 0.75, ease: "easeOut" }}
             className=""
-            viewport={{ once: false, amount: 0.5 }}
+          // viewport={{ once: false, amount: 0 }}
           >
             <Image
               src="/sam-vance2.png"
               alt="example"
               width={380}
               height={380}
-              className="hover:scale-105 transition-transform duration-500"
+              className="hover:scale-105 transition-transform duration-500 min-w-80"
             />
           </motion.div>
         </div>
@@ -143,14 +133,16 @@ function Hero() {
           <motion.div
             className="mt-[8%] text-center"
             initial={{ opacity: 0, y: playIntro ? 0 : 100, x: playIntro ? 0 : 50 }}
-            whileInView={{ opacity: 1, y: 0, x: 0 }}
-            exit={{ opacity: 0, y: 100, x: 50 }}
+            animate={{ opacity: 1, y: 0, x: 0 }}
+            // exit={{ opacity: 0, y: 100, x: 50 }}
             transition={{ delay: playIntro ? 4 : 0, duration: .75, ease: "easeOut" }}
-            viewport={{ once: false, amount: 0.5 }}
+          // viewport={{ once: false, amount: 0.5 }}
           >
-            <button className={`${josefin.className} text-3xl font-light rounded-4xl hover:border-gray-300 py-2 px-4 border border-white/10 transition-all hover:font-medium shadow-[#faf8ed]/30 shadow-[0_0_6px_rgba(255,255,255,0.25)] 
+            <button className={`${josefin.className} cursor-pointer text-3xl font-light rounded-4xl hover:border-gray-300 py-2 px-4 border border-white/10 transition-all hover:font-medium shadow-[#faf8ed]/30 shadow-[0_0_6px_rgba(255,255,255,0.25)] 
   hover:bg-[#faf8ed] hover:text-black hover:scale-105 duration-400 tracking-tighter
-  hover:shadow-[0_0_25px_rgba(255,255,255,0.4)]`}>
+  hover:shadow-[0_0_25px_rgba(255,255,255,0.4)]`}
+              onClick={() => router.push('/projects')}
+            >
               check out my projects
             </button>
           </motion.div>

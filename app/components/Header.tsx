@@ -22,11 +22,11 @@ export default function Header() {
                 home
               </Link>
             </li>
-            <li>
+            {/* <li>
               <Link href="/" className="inline-block hover:scale-110 transition-transform duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 rounded">
                 timeline
               </Link>
-            </li>
+            </li> */}
             <li>
               <Link href="/projects" className="inline-block hover:scale-110 transition-transform duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 rounded">
                 projects
@@ -65,7 +65,7 @@ export default function Header() {
                       home
                     </Link>
                   </li>
-                  <li>
+                  {/* <li>
                     <Link
                       href="/"
                       onClick={() => setMenuOpen(false)}
@@ -73,7 +73,7 @@ export default function Header() {
                     >
                       timeline
                     </Link>
-                  </li>
+                  </li> */}
                   <li>
                     <Link
                       href="/"

@@ -13,13 +13,14 @@ export const letterVariants = {
 
 type TypewriterProps = {
   text: string;
+  playIntro: boolean;
   [key: string]: any;
 };
 
-export const Typewriter = ({ text, ...rest }: TypewriterProps) => (
+export const Typewriter = ({ text, playIntro, ...rest }: TypewriterProps) => (
   <motion.p
     key={text}
-    variants={sentenceVariants}
+    variants={playIntro ? sentenceVariants : { visible: { opacity: 1 } }}
     initial="hidden"
     animate="visible"
     {...rest}
