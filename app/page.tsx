@@ -146,7 +146,7 @@ function Hero() {
               check out my projects
             </button>
           </motion.div>
-          <div className="relative z-10 mx-auto md:mt-8 max-w-5xl px-6">
+          <div className="relative z-10 mx-auto md:mt-14 max-w-5xl px-6">
             <ProductCarousel slides={slides} hasLoaded={hasLoaded} playIntro={playIntro} />
           </div>
         </div>
@@ -316,7 +316,7 @@ function ProductCarousel({ slides, hasLoaded, playIntro }: { slides: Slide[], ha
 
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
-  const DURATION = 4500; // ms per slide
+  const DURATION = 6000; // ms per slide
   const CARDS_TO_SHOW = 5;
   const CARD_WIDTH = isMobile ? 144 : 176; // w-44 = 176px
   const GAP = 24; // gap-6 = 26px
@@ -359,19 +359,15 @@ function ProductCarousel({ slides, hasLoaded, playIntro }: { slides: Slide[], ha
           <div className="relative w-[312px] md:w-[976px] overflow-hidden">
             <motion.div
               className="flex gap-6"
-              // initial={{ opacity: 0, x: 50, y: 80 }}
               animate={{ x: offset }}
-              transition={{ delay: playIntro ? 3 : 0, duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-              // whileInView={{ opacity: 1, x: 0, y: 0 }}         // fade/slide in when visible
-              // exit={{ opacity: 0, x: 60 }}
-              // viewport={{ once: false, amount: 0.6 }}
+              transition={{ delay: playIntro ? 3 : 0, duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
               aria-live="polite"
             >
               {/* Render extra cards for smooth infinite scrolling */}
               {[...slides, ...slides.slice(0, CARDS_TO_SHOW)].map((card, i) => (
                 <motion.div
                   key={i}
-                  className="relative aspect-[3/4] w-36 md:w-44 flex-shrink-0"
+                  className="relative aspect-[5/3] w-36 md:w-44 flex-shrink-0"
                   initial={{ opacity: 0, x: 200 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{
@@ -384,8 +380,8 @@ function ProductCarousel({ slides, hasLoaded, playIntro }: { slides: Slide[], ha
                     src={card.src}
                     alt={card.alt}
                     fill
-                    sizes="(min-width: 1024px) 256px, 200px"
-                    className="object-contain rounded-lg shadow-lg"
+                    sizes="(min-width: 1024px) 200px, 256px"
+                    className="object-cover shadow-lg"
                     priority={i < CARDS_TO_SHOW}
                   />
                   {/* <div className="absolute inset-0 bg-[#aba79e]/30"></div> */}

@@ -21,21 +21,21 @@ const projects = [
     left: "/previews/light.mp4",
     right: "/previews/light-painter-trimmed.mp4",
   },
-  {
-    title: "Project 4",
-    left: "/previews/p4-left.jpg",
-    right: "/previews/p4-right.jpg",
-  },
-  {
-    title: "Project 5",
-    left: "/previews/p5-left.jpg",
-    right: "/previews/p5-right.jpg",
-  },
-  {
-    title: "Project 6",
-    left: "/previews/p6-left.jpg",
-    right: "/previews/p6-right.jpg",
-  },
+  // {
+  //   title: "Project 4",
+  //   left: "/previews/p4-left.jpg",
+  //   right: "/previews/p4-right.jpg",
+  // },
+  // {
+  //   title: "Project 5",
+  //   left: "/previews/p5-left.jpg",
+  //   right: "/previews/p5-right.jpg",
+  // },
+  // {
+  //   title: "Project 6",
+  //   left: "/previews/p6-left.jpg",
+  //   right: "/previews/p6-right.jpg",
+  // },
 ];
 
 export default function TOC() {
@@ -48,13 +48,13 @@ export default function TOC() {
     <div id="projects-toc" className="relative">
 
       <motion.section
-        className={`mx-auto max-w-7xl mt-80 px-10 py-10 mb-300 ${josefin.className} text-center`}
+        className={`mx-auto max-w-7xl mt-80 px-10 py-10 mb-80 ${josefin.className} text-center`}
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 1.25, ease: "easeOut" }}
       >
         <h2 className="text-5xl font-bold tracking-wide mb-20">
-          Table of Contents
+          Featured Projects
         </h2>
 
         {/* Project titles */}
@@ -88,6 +88,7 @@ export default function TOC() {
               <video
                 src={current.left}
                 className="w-full h-full"
+                preload="metadata"
                 autoPlay
                 muted
                 loop
@@ -119,6 +120,7 @@ export default function TOC() {
               <video
                 src={current.right}
                 className="object-cover w-full h-full"
+                preload="metadata"
                 autoPlay
                 muted
                 loop

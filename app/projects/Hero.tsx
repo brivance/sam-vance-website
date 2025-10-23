@@ -1,5 +1,6 @@
 import { DM_Serif_Text, Josefin_Sans } from "next/font/google";
 import { cubicBezier, motion, useReducedMotion } from "framer-motion";
+import { useEffect, useRef } from "react";
 
 import { useRouter } from "next/navigation";
 
@@ -10,6 +11,27 @@ export default function Hero() {
   const router = useRouter();
   const r = useReducedMotion();
   const EASE = cubicBezier(0.25, 0.46, 0.45, 0.94);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          video.play().catch(() => { });
+        } else {
+          video.pause();
+        }
+      },
+      { threshold: 0.25 } // play only if at least 25% visible
+    );
+
+    observer.observe(video);
+
+    return () => observer.disconnect();
+  }, []);
 
 
   function headingVariants(button = false) {
@@ -64,6 +86,7 @@ export default function Hero() {
         className="relative w-full overflow-hidden shadow-lg -mt-[33.2%] pl-[23.05%] z-0"
       >
         <video
+          ref={videoRef}
           className="w-full aspect-video object-cover"
           autoPlay
           muted
