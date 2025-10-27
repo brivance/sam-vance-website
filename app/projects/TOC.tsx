@@ -8,7 +8,7 @@ const josefin = Josefin_Sans({ subsets: ["latin"] });
 const projects = [
   {
     title: "Humanoid Legs",
-    left: "/previews/inverse_kinematics.mp4",
+    left: "https://1zourvot3ixty7kd.public.blob.vercel-storage.com/inverse_kinematics.mp4",
     right: "/previews/walking_legs_v1.mp4",
   },
   {

@@ -21,7 +21,7 @@ export default function Header() {
     <div className={`${josefin.className} font-semibold absolute top-0 inset-x-0 z-50`}>
       <div className={`justify-between mx-auto flex text-3xl items-center px-10 py-4`}>
         <Link href="/" className={`-ml-4 font-semibold tracking-wide`}>
-          SV
+
         </Link>
         <nav aria-label="Primary" className="hidden md:block">
           <ul className={`flex gap-16 items-center text-2xl`}>
@@ -52,7 +52,7 @@ export default function Header() {
                     animate={{ opacity: 1, height: "auto" }}
                     exit={{ opacity: 0, height: 0 }}
                     transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
-                    className="absolute left-0 pt-2 w-56 text-white -ml-6 rounded-lg shadow-lg overflow-hidden bg-blackish"
+                    className="absolute left-0 pt-2 w-56 text-white -ml-6 rounded-lg shadow-lg overflow-hidden"
                   >
                     {projectLinks.map((proj) => (
                       <li key={proj.href}>
