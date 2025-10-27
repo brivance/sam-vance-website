@@ -73,7 +73,7 @@ export default function IntroVid() {
           loop
           playsInline
         >
-          <source src="/sam-inventions-short.mp4" type="video/mp4" />
+          <source src="https://1zourvot3ixty7kd.public.blob.vercel-storage.com/sam-inventions-short.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
       </motion.div>

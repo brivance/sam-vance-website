@@ -94,7 +94,7 @@ export default function Hero() {
           playsInline
           preload="none"
         >
-          <source src="/assembly_v3.MP4" type="video/mp4" />
+          <source src="https://1zourvot3ixty7kd.public.blob.vercel-storage.com/assembly_v3.MP4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
         {/* <motion.button

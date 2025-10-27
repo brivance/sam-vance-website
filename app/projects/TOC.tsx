@@ -9,17 +9,17 @@ const projects = [
   {
     title: "Humanoid Legs",
     left: "https://1zourvot3ixty7kd.public.blob.vercel-storage.com/inverse_kinematics.mp4",
-    right: "/previews/walking_legs_v1.mp4",
+    right: "https://1zourvot3ixty7kd.public.blob.vercel-storage.com/walking_legs_v1.mp4",
   },
   {
     title: "Self-Playing Flute",
-    left: "/previews/trimmed-flute.mp4",
-    right: "/previews/flute-playing.mp4",
+    left: "https://1zourvot3ixty7kd.public.blob.vercel-storage.com/trimmed-flute.mp4",
+    right: "https://1zourvot3ixty7kd.public.blob.vercel-storage.com/flute-playing.mp4",
   },
   {
     title: "AI Light-Painter",
-    left: "/previews/light.mp4",
-    right: "/previews/light-painter-trimmed.mp4",
+    left: "https://1zourvot3ixty7kd.public.blob.vercel-storage.com/light.mp4",
+    right: "https://1zourvot3ixty7kd.public.blob.vercel-storage.com/light-painter-trimmed.mp4",
   },
   // {
   //   title: "Project 4",
