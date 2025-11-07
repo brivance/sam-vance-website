@@ -58,7 +58,7 @@ export default function Header() {
                       <li key={proj.href}>
                         <Link
                           href={proj.href}
-                          className="block px-5 py-2 text-lg hover:scale-105 transition-transform duration-200"
+                          className="block px-5 py-2 text-lg hover:scale-105 transition-transform duration-200 bg-blackish"
                         >
                           {proj.name}
                         </Link>

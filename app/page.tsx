@@ -168,7 +168,14 @@ function Body() {
         <div className="flex gap-5 mx-[15%] py-20 text-[2.75rem] my-30">
           <div className={`${ephesis.className} text-gray-600 text-[200px] -mt-20 mr-5`}>&ldquo;</div>
           <div className={`${dmSerif.className} flex flex-col leading-relaxed gap-14`}>
-            <span>There is no chance, no destiny, no fate, that can circumvent, or hinder, or control the firm resolve of a determined soul.</span>
+            <span>There is no chance, no destiny, no fate, that can circumvent, or hinder, or control the firm resolve of a determined soul.<span className="relative inline-block h-[0.9em] overflow-hidden align-baseline leading-none">
+              <span
+                className={`${ephesis.className} block text-gray-600 text-[200px] leading-none -translate-y-[0.24em]`}
+              >
+                &rdquo;
+              </span>
+            </span></span>
+
             <span>— Ella Wheeler Wilcox</span>
           </div>
         </div>
@@ -341,7 +348,7 @@ function ProductCarousel({ slides, hasLoaded, playIntro }: { slides: Slide[], ha
   return (
     <div className="relative pb-35">
       {/* Stage */}
-      <motion.div
+      {/* <motion.div
         // Outer wrapper handles visibility (fade in/out) when scrolling
         initial={{ opacity: 0, y: hasLoaded ? 60 : 0 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -352,45 +359,45 @@ function ProductCarousel({ slides, hasLoaded, playIntro }: { slides: Slide[], ha
           // console.log("Gallery scrolled out of view");
         }}
         className="relative w-full max-w-[976px] mx-auto overflow-hidden"
-      >
-        <div className="flex justify-center">
-          {/* 5 cards * 176px + 4 gaps * 24px = 976px */}
-          {/* 2 cards * 144px + 1 gaps * 24px = 312px */}
-          <div className="relative w-[312px] md:w-[976px] overflow-hidden">
-            <motion.div
-              className="flex gap-6"
-              animate={{ x: offset }}
-              transition={{ delay: playIntro ? 3 : 0, duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
-              aria-live="polite"
-            >
-              {/* Render extra cards for smooth infinite scrolling */}
-              {[...slides, ...slides.slice(0, CARDS_TO_SHOW)].map((card, i) => (
-                <motion.div
-                  key={i}
-                  className="relative aspect-[5/3] w-36 md:w-44 flex-shrink-0"
-                  initial={{ opacity: 0, x: 200 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{
-                    delay: !playIntro ? card.initialDelay - 4.4 : card.initialDelay,
-                    duration: 0.4,
-                    ease: [0.2, 0.8, 0.2, 1.0],
-                  }}
-                >
-                  <Image
-                    src={card.src}
-                    alt={card.alt}
-                    fill
-                    sizes="(min-width: 1024px) 200px, 256px"
-                    className="object-cover shadow-lg"
-                    priority={i < CARDS_TO_SHOW}
-                  />
-                  {/* <div className="absolute inset-0 bg-[#aba79e]/30"></div> */}
-                </motion.div>
-              ))}
-            </motion.div>
-          </div>
+      > */}
+      <div className="flex justify-center">
+        {/* 5 cards * 176px + 4 gaps * 24px = 976px */}
+        {/* 2 cards * 144px + 1 gaps * 24px = 312px */}
+        <div className="relative w-[312px] md:w-[976px] overflow-hidden">
+          <motion.div
+            className="flex gap-6"
+            animate={{ x: offset }}
+            transition={{ delay: playIntro ? 3 : 0, duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+            aria-live="polite"
+          >
+            {/* Render extra cards for smooth infinite scrolling */}
+            {[...slides, ...slides.slice(0, CARDS_TO_SHOW)].map((card, i) => (
+              <motion.div
+                key={i}
+                className="relative aspect-[5/3] w-36 md:w-44 flex-shrink-0"
+                initial={{ opacity: 0, x: 200 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{
+                  delay: !playIntro ? card.initialDelay - 4.4 : card.initialDelay,
+                  duration: 0.4,
+                  ease: [0.2, 0.8, 0.2, 1.0],
+                }}
+              >
+                <Image
+                  src={card.src}
+                  alt={card.alt}
+                  fill
+                  sizes="(min-width: 1024px) 200px, 256px"
+                  className="object-cover shadow-lg"
+                  priority={i < CARDS_TO_SHOW}
+                />
+                {/* <div className="absolute inset-0 bg-[#aba79e]/30"></div> */}
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
-      </motion.div>
+      </div>
+      {/* </motion.div> */}
     </div>
   );
 }

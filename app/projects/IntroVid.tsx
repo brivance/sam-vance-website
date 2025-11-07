@@ -1,16 +1,13 @@
-import { DM_Serif_Text, Josefin_Sans } from "next/font/google";
 import { cubicBezier, motion, useReducedMotion } from "framer-motion";
 import { useEffect, useRef } from "react";
 
-import { useRouter } from "next/navigation";
+import { Josefin_Sans } from "next/font/google";
 
 const josefin = Josefin_Sans({ subsets: ["latin"] });
 
 export default function IntroVid() {
-  const router = useRouter();
   const r = useReducedMotion();
   const EASE = cubicBezier(0.25, 0.46, 0.45, 0.94);
-
 
   function headingVariants(button = false) {
     return {
@@ -48,32 +45,42 @@ export default function IntroVid() {
 
 
   return (
+
     <section className={`${josefin.className} flex flex-col gap-4 justify-end relative max-w-7xl mt-100 isolate mx-44`}>
       <motion.h1
         variants={headingVariants()}
-        initial="hidden"
-        animate="show"
-        style={{ willChange: "transform" }}
-        className={`relative text-5xl tracking-[0.02em] text-right text-white mix-blend-difference z-10 w-full`}
+        initial={{ opacity: 0, y: -30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{
+          duration: 2,
+          ease: [0.2, 0.8, 0.2, 1.0],
+        }}
+        viewport={{ once: false, amount: 0.80 }}
+        className={`relative text-4xl tracking-[0.02em] text-right text-white mix-blend-difference z-10 w-full`}
       >
         Highlights from years of building, tinkering, and creating.
       </motion.h1>
       <motion.div
         variants={videoVariants}
-        initial={r ? undefined : "hidden"}
-        animate="show"
-        className="relative overflow-hidden shadow-lg z-0 w-7/10 -mt-8"
+        initial={{ opacity: 0, y: 20, x: -10 }}
+        whileInView={{ opacity: 1, y: 0, x: 0 }}
+        transition={{
+          duration: 1,
+          ease: [0.2, 0.8, 0.2, 1.0],
+        }}
+        viewport={{ once: false, amount: 0.20 }}
+        className="relative overflow-hidden shadow-lg z-0"
       >
         <video
-          className="w-full aspect-video object-cover"
+          className="w-full aspect-video object-cover pt-20"
           ref={videoRef}
-          // preload="metadata"
+          rel="preload"
           autoPlay
           muted
           loop
           playsInline
         >
-          <source src="https://1zourvot3ixty7kd.public.blob.vercel-storage.com/sam-inventions-short.mp4" type="video/mp4" />
+          <source src="https://cdn.briannavance.com/sam-vance-website/sam-inventions-short.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
       </motion.div>

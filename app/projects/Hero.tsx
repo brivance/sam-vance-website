@@ -88,13 +88,13 @@ export default function Hero() {
         <video
           ref={videoRef}
           className="w-full aspect-video object-cover"
+          preload="auto"
           autoPlay
           muted
           loop
           playsInline
-          preload="none"
         >
-          <source src="https://1zourvot3ixty7kd.public.blob.vercel-storage.com/assembly_v3.MP4" type="video/mp4" />
+          <source src="https://cdn.briannavance.com/sam-vance-website/assembly.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
         {/* <motion.button

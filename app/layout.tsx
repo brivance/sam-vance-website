@@ -23,7 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${josefin.variable} antialiased bg-blackish`}
+        className={`${josefin.className} antialiased bg-blackish`}
       >
         <Header />
         {children}
