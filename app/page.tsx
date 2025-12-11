@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
-import { DM_Serif_Text, Ephesis, Josefin_Sans } from "next/font/google";
+import { DM_Serif_Text, Ephesis, Josefin_Sans, MuseoModerno } from "next/font/google";
 import { useEffect, useRef, useState } from "react";
 
 import Image from "next/image";
@@ -12,6 +12,7 @@ const josefin = Josefin_Sans({ subsets: ["latin"] });
 // const exo = Exo_2({ subsets: ["latin"] });
 const dmSerif = DM_Serif_Text({ subsets: ["latin"], weight: "400" });
 const ephesis = Ephesis({ subsets: ["latin"], weight: "400" });
+const moderno = MuseoModerno({ subsets: ["latin"], weight: "400" });
 
 export default function Home() {
   return (
@@ -87,7 +88,7 @@ function Hero() {
               animate={{ opacity: 1, x: 0, y: 0 }}
               transition={{ delay: playIntro ? 2.2 : 0, duration: playIntro ? 2.5 : .7 }}
             >
-              <span className={`${dmSerif.className} text-9xl font-extrabold text-center whitespace-nowrap`}>
+              <span className={`${moderno.className} text-9xl font-extrabold text-center whitespace-nowrap`}>
                 <Typewriter text="SAM VANCE" playIntro={playIntro} />
               </span>
             </motion.div>
@@ -99,7 +100,7 @@ function Hero() {
               <AnimatePresence mode="wait">
                 <motion.p
                   key={phrases[index]}
-                  className={`${josefin.className} mt-4 text-4xl text-center font-bold tracking-wider`}
+                  className={`${moderno.className} mt-4 text-4xl text-center font-bold tracking-wider`}
                   initial={{ opacity: 0, y: 0, x: 0 }}
                   animate={{ opacity: 1, y: 0, x: 0 }}
                   exit={{ opacity: 0, y: 0 }}
@@ -138,7 +139,7 @@ function Hero() {
             transition={{ delay: playIntro ? 4 : 0, duration: .75, ease: "easeOut" }}
           // viewport={{ once: false, amount: 0.5 }}
           >
-            <button className={`${josefin.className} cursor-pointer text-3xl font-light rounded-4xl hover:border-gray-300 py-2 px-4 border border-white/10 transition-all hover:font-medium shadow-[#faf8ed]/30 shadow-[0_0_6px_rgba(255,255,255,0.25)] 
+            <button className={`${moderno.className} cursor-pointer text-3xl font-light rounded-4xl hover:border-gray-300 py-2 px-4 border border-white/10 transition-all hover:font-medium shadow-[#faf8ed]/30 shadow-[0_0_6px_rgba(255,255,255,0.25)] 
   hover:bg-[#faf8ed] hover:text-black hover:scale-105 duration-400 tracking-tighter
   hover:shadow-[0_0_25px_rgba(255,255,255,0.4)]`}
               onClick={() => router.push('/projects')}

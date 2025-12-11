@@ -1,13 +1,15 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
+import { Josefin_Sans, MuseoModerno } from "next/font/google";
 
-import { Josefin_Sans } from "next/font/google";
+import Image from "next/image";
 import Link from "next/link";
 import { Menu } from "@/public/icons/Menu";
 import { useState } from "react";
 
 const josefin = Josefin_Sans({ subsets: ["latin"], weight: "400" });
+const moderno = MuseoModerno({ subsets: ["latin"], weight: "400" });
 const projectLinks = [
   { name: "humanoid legs", href: "/projects/humanoid-legs" },
   { name: "self-playing flute", href: "/projects/self-playing-flute" },
@@ -18,10 +20,16 @@ export default function Header() {
   const [hover, setHover] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   return (
-    <div className={`${josefin.className} font-semibold absolute top-0 inset-x-0 z-50`}>
+    <div className={`${moderno.className} font-semibold absolute top-0 inset-x-0 z-50`}>
       <div className={`justify-between mx-auto flex text-3xl items-center px-10 py-4`}>
         <Link href="/" className={`-ml-4 font-semibold tracking-wide`}>
-
+          <Image
+            src="/logo.png"
+            alt="Logo"
+            width={100}
+            height={100}
+            className="object-contain"
+          />
         </Link>
         <nav aria-label="Primary" className="hidden md:block">
           <ul className={`flex gap-16 items-center text-2xl`}>

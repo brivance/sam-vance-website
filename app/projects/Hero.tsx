@@ -1,4 +1,4 @@
-import { DM_Serif_Text, Josefin_Sans } from "next/font/google";
+import { DM_Serif_Text, Josefin_Sans, MuseoModerno } from "next/font/google";
 import { cubicBezier, motion, useReducedMotion } from "framer-motion";
 import { useEffect, useRef } from "react";
 
@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 
 const dmSerif = DM_Serif_Text({ subsets: ["latin"], weight: "400" });
 const josefin = Josefin_Sans({ subsets: ["latin"] });
+const moderno = MuseoModerno({ subsets: ["latin"], weight: "400" });
 
 export default function Hero() {
   const router = useRouter();
@@ -48,7 +49,7 @@ export default function Hero() {
 
 
   return (
-    <section className={`${dmSerif.className} relative mx-auto max-w-7xl mt-40 isolate`}>
+    <section className={`${moderno.className} relative mx-auto max-w-7xl mt-40 isolate`}>
       {/* White heading in normal flow */}
       <motion.h1
         variants={headingVariants()}
