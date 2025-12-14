@@ -1,5 +1,3 @@
-"use client";
-
 import Hero from "./Hero";
 import IntroVid from "./IntroVid";
 import TOC from "./TOC";

@@ -1,8 +1,15 @@
 import "./globals.css";
 
+import { Josefin_Sans, MuseoModerno } from "next/font/google";
+
 import Header from "./components/Header";
-import { Josefin_Sans } from "next/font/google";
 import type { Metadata } from "next";
+
+const museo = MuseoModerno({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-museo",   // <-- gives you a CSS variable
+});
 
 const josefin = Josefin_Sans({
   subsets: ["latin"],
@@ -21,7 +28,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={museo.variable}>
       <body
         className={`${josefin.className} antialiased bg-blackish`}
       >

@@ -1,23 +1,28 @@
+"use client";
+
 import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useState } from "react";
 
 import { Josefin_Sans } from "next/font/google";
+import { useState } from "react";
 
 const josefin = Josefin_Sans({ subsets: ["latin"] });
 
 const projects = [
   {
     title: "Humanoid Legs",
+    src: "/projects/humanoid-legs",
     left: "https://cdn.briannavance.com/sam-vance-website/inverse_kinematics.mp4",
     right: "https://cdn.briannavance.com/sam-vance-website/walking_legs_v1.mp4",
   },
   {
     title: "Self-Playing Flute",
+    src: "/projects/self-playing-flute",
     left: "https://cdn.briannavance.com/sam-vance-website/trimmed-flute.mp4",
     right: "https://cdn.briannavance.com/sam-vance-website/flute-playing.mp4",
   },
   {
     title: "AI Light-Painter",
+    src: "/projects/ai-light-painter",
     left: "https://cdn.briannavance.com/sam-vance-website/light.mp4",
     right: "https://cdn.briannavance.com/sam-vance-website/light-painter-trimmed.mp4",
   },
@@ -52,9 +57,9 @@ export default function TOC() {
         whileInView={{ opacity: 1 }}
         transition={{ duration: 1.25, ease: "easeOut" }}
       >
-        <h2 className="text-5xl font-bold tracking-wide mb-20">
+        <h1 className="text-5xl font-bold tracking-wide mb-20">
           Featured Projects
-        </h2>
+        </h1>
 
         {/* Project titles */}
         <div className="flex flex-col gap-14 text-3xl w-fit mx-auto">
@@ -66,7 +71,7 @@ export default function TOC() {
               className={`transition-colors duration-300 cursor-pointer ${hovered === i ? "text-gray-200 scale-105" : "text-white/80"
                 }`}
             >
-              {p.title}
+              <a href={p.src}>{p.title}</a>
             </span>
           ))}
         </div>

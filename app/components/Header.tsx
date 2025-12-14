@@ -26,8 +26,8 @@ export default function Header() {
           <Image
             src="/logo.png"
             alt="Logo"
-            width={100}
-            height={100}
+            width={60}
+            height={60}
             className="object-contain"
           />
         </Link>
@@ -35,7 +35,7 @@ export default function Header() {
           <ul className={`flex gap-16 items-center text-2xl`}>
             <li>
               <Link href="/" className="inline-block hover:scale-110 transition-transform duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 rounded">
-                home
+                <h2>home</h2>
               </Link>
             </li>
             {/* <li>
@@ -49,7 +49,7 @@ export default function Header() {
                 href="/projects"
                 className="inline-block hover:scale-110 transition-transform duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 rounded"
               >
-                projects
+                <h2>projects</h2>
               </Link>
 
               {/* Dropdown */}
@@ -68,7 +68,7 @@ export default function Header() {
                           href={proj.href}
                           className="block px-5 py-2 text-lg hover:scale-105 transition-transform duration-200 bg-blackish"
                         >
-                          {proj.name}
+                          <h2>{proj.name}</h2>
                         </Link>
                       </li>
                     ))}
@@ -77,8 +77,8 @@ export default function Header() {
               </AnimatePresence>
             </li>
             <li>
-              <Link href="/" className="inline-block hover:scale-110 transition-transform duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 rounded">
-                contact me
+              <Link href="/contact" className="inline-block hover:scale-110 transition-transform duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 rounded">
+                <h2>contact</h2>
               </Link>
             </li>
           </ul>
@@ -106,7 +106,7 @@ export default function Header() {
                       onClick={() => setMenuOpen(false)}
                       className="block hover:scale-110 transition-transform duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 rounded"
                     >
-                      home
+                      <h2>home</h2>
                     </Link>
                   </li>
                   {/* <li>
@@ -124,16 +124,16 @@ export default function Header() {
                       onClick={() => setMenuOpen(false)}
                       className="block hover:scale-110 transition-transform duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 rounded"
                     >
-                      projects
+                      <h2>projects</h2>
                     </Link>
                   </li>
                   <li>
                     <Link
-                      href="/"
+                      href="/contact"
                       onClick={() => setMenuOpen(false)}
                       className="block hover:scale-110 transition-transform duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 rounded"
                     >
-                      contact me
+                      <h2>contact me</h2>
                     </Link>
                   </li>
                 </ul>

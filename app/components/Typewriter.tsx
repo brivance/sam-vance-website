@@ -18,7 +18,7 @@ type TypewriterProps = {
 };
 
 export const Typewriter = ({ text, playIntro, ...rest }: TypewriterProps) => (
-  <motion.p
+  <motion.h1
     key={text}
     variants={playIntro ? sentenceVariants : { visible: { opacity: 1 } }}
     initial="hidden"
@@ -30,5 +30,5 @@ export const Typewriter = ({ text, playIntro, ...rest }: TypewriterProps) => (
         {char}
       </motion.span>
     ))}
-  </motion.p>
+  </motion.h1>
 );

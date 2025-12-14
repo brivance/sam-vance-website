@@ -1,3 +1,5 @@
+"use client";
+
 import { cubicBezier, motion, useReducedMotion } from "framer-motion";
 import { useEffect, useRef } from "react";
 

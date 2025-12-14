@@ -1,22 +1,15 @@
 "use client";
 
 import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
-import { DM_Serif_Text, Ephesis, Josefin_Sans, MuseoModerno } from "next/font/google";
 import { useEffect, useRef, useState } from "react";
 
 import Image from "next/image";
 import { Typewriter } from "./components/Typewriter";
 import { useRouter } from "next/navigation";
 
-const josefin = Josefin_Sans({ subsets: ["latin"] });
-// const exo = Exo_2({ subsets: ["latin"] });
-const dmSerif = DM_Serif_Text({ subsets: ["latin"], weight: "400" });
-const ephesis = Ephesis({ subsets: ["latin"], weight: "400" });
-const moderno = MuseoModerno({ subsets: ["latin"], weight: "400" });
-
 export default function Home() {
   return (
-    <div className={josefin.className}>
+    <div>
       <Hero />
       <Body />
     </div>
@@ -88,8 +81,8 @@ function Hero() {
               animate={{ opacity: 1, x: 0, y: 0 }}
               transition={{ delay: playIntro ? 2.2 : 0, duration: playIntro ? 2.5 : .7 }}
             >
-              <span className={`${moderno.className} text-9xl font-extrabold text-center whitespace-nowrap`}>
-                <Typewriter text="SAM VANCE" playIntro={playIntro} />
+              <span className={`text-9xl text-center whitespace-nowrap`}>
+                <Typewriter text="sam vance" playIntro={playIntro} />
               </span>
             </motion.div>
             <motion.div
@@ -98,9 +91,9 @@ function Hero() {
               transition={{ delay: playIntro ? 3.7 : .5 }}
             >
               <AnimatePresence mode="wait">
-                <motion.p
+                <motion.h2
                   key={phrases[index]}
-                  className={`${moderno.className} mt-4 text-4xl text-center font-bold tracking-wider`}
+                  className={`mt-4 text-4xl text-center tracking-wider`}
                   initial={{ opacity: 0, y: 0, x: 0 }}
                   animate={{ opacity: 1, y: 0, x: 0 }}
                   exit={{ opacity: 0, y: 0 }}
@@ -110,7 +103,7 @@ function Hero() {
                   }}
                 >
                   {phrases[index]}
-                </motion.p>
+                </motion.h2>
               </AnimatePresence>
             </motion.div>
           </div>
@@ -139,7 +132,7 @@ function Hero() {
             transition={{ delay: playIntro ? 4 : 0, duration: .75, ease: "easeOut" }}
           // viewport={{ once: false, amount: 0.5 }}
           >
-            <button className={`${moderno.className} cursor-pointer text-3xl font-light rounded-4xl hover:border-gray-300 py-2 px-4 border border-white/10 transition-all hover:font-medium shadow-[#faf8ed]/30 shadow-[0_0_6px_rgba(255,255,255,0.25)] 
+            <button className={`cursor-pointer text-3xl font-light rounded-4xl hover:border-gray-300 py-2 px-4 border border-white/10 transition-all hover:font-medium shadow-[#faf8ed]/30 shadow-[0_0_6px_rgba(255,255,255,0.25)] 
   hover:bg-[#faf8ed] hover:text-black hover:scale-105 duration-400 tracking-tighter
   hover:shadow-[0_0_25px_rgba(255,255,255,0.4)]`}
               onClick={() => router.push('/projects')}
@@ -158,20 +151,20 @@ function Hero() {
 
 function Body() {
   return (
-    <section className="bg-blackish mt-40">
+    <section>
       <motion.section
-        className="bg-blackish mt-40"
+        className="mt-40"
         initial={{ opacity: 0, y: 60 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.2, ease: "easeOut" }}
         viewport={{ once: false, amount: 0.60 }} // only triggers once when ~30% visible
       >
         <div className="flex gap-5 mx-[15%] py-20 text-[2.75rem] my-30">
-          <div className={`${ephesis.className} text-gray-600 text-[200px] -mt-20 mr-5`}>&ldquo;</div>
-          <div className={`${dmSerif.className} flex flex-col leading-relaxed gap-14`}>
+          <div className={` text-gray-600 text-[200px] -mt-20 mr-5`}>&ldquo;</div>
+          <div className={`flex flex-col leading-relaxed gap-14`}>
             <span>There is no chance, no destiny, no fate, that can circumvent, or hinder, or control the firm resolve of a determined soul.<span className="relative inline-block h-[0.9em] overflow-hidden align-baseline leading-none">
               <span
-                className={`${ephesis.className} block text-gray-600 text-[200px] leading-none -translate-y-[0.24em]`}
+                className={`block text-gray-600 text-[200px] leading-none -translate-y-[0.24em]`}
               >
                 &rdquo;
               </span>
@@ -209,7 +202,7 @@ function OverlapSection() {
   return (
     <section
       ref={ref}
-      className="relative flex items-center justify-center bg-blackish"
+      className="relative flex items-center justify-center"
     >
       <div className="flex items-center justify-center w-[80%] relative">
         {/* Text side */}
@@ -221,9 +214,9 @@ function OverlapSection() {
           style={{ y: textY }}
           className="relative z-10 w-3/4 text-center -mt-30"
         >
-          <h2 className="text-[1.75rem] font-bold leading-tight text-gray-100">
+          <p className="text-[1.75rem] font-bold leading-tight text-gray-100">
             I love to build robots and I am so smart my name is Sam Vance and one day you will know me because I am famous. I am going to make a company that changes the world and therefore become very rich and buy a huge mansion wherever I desire. This is an ambition but also I know it will come true so it is also a destiny.
-          </h2>
+          </p>
         </motion.div>
 
         {/* Image side */}
@@ -264,7 +257,7 @@ function OverlapSection2() {
   return (
     <section
       ref={ref}
-      className="relative flex items-center justify-center bg-blackish py-32 overflow-visible pb-40"
+      className="relative flex items-center justify-center py-32 overflow-visible pb-40"
     >
       <div className="flex items-center justify-center w-[80%] relative">
         {/* Text side */}
@@ -295,9 +288,9 @@ function OverlapSection2() {
           style={{ y: textY }}
           className="relative -ml-40 w-3/4 z-10 -mt-20"
         >
-          <h2 className="text-[1.75rem] font-bold leading-tight text-gray-100">
+          <p className="text-[1.75rem] font-bold leading-tight text-gray-100">
             I love to build robots and I am so smart my name is Sam Vance and one day you will know me because I am famous. I am going to make a company that changes the world and therefore become very rich and buy a huge mansion wherever I desire. This is an ambition but also I know it will come true so it is also a destiny.
-          </h2>
+          </p>
         </motion.div>
       </div>
     </section>

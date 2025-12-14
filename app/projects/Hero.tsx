@@ -1,12 +1,9 @@
-import { DM_Serif_Text, Josefin_Sans, MuseoModerno } from "next/font/google";
+"use client";
+
 import { cubicBezier, motion, useReducedMotion } from "framer-motion";
 import { useEffect, useRef } from "react";
 
 import { useRouter } from "next/navigation";
-
-const dmSerif = DM_Serif_Text({ subsets: ["latin"], weight: "400" });
-const josefin = Josefin_Sans({ subsets: ["latin"] });
-const moderno = MuseoModerno({ subsets: ["latin"], weight: "400" });
 
 export default function Hero() {
   const router = useRouter();
@@ -49,16 +46,16 @@ export default function Hero() {
 
 
   return (
-    <section className={`${moderno.className} relative mx-auto max-w-7xl mt-40 isolate`}>
+    <section className={`relative mx-auto max-w-7xl mt-40 isolate`}>
       {/* White heading in normal flow */}
       <motion.h1
         variants={headingVariants()}
         initial="hidden"
         animate="show"
         style={{ willChange: "transform" }}
-        className={`relative text-9xl tracking-[0.02em] font-bold text-left text-white pl-[10%] mix-blend-difference z-10`}
+        className={`relative text-9xl font-medium tracking-[0.02em] text-left text-white pl-[10%] mix-blend-difference z-10`}
       >
-        Projects
+        projects
       </motion.h1>
 
       <motion.button
@@ -72,10 +69,10 @@ export default function Hero() {
           color: "#000",
         }}
         // style={{ willChange: "transform" }}
-        className={`relative text-3xl bg-white text-black tracking-[0.02em] text-left mix-blend-difference z-10 rounded-3xl px-3 py-1 mt-[25%] ml-[19%] cursor-pointer border border-white/10 ${josefin.className}`}
+        className={`relative text-3xl bg-white text-black tracking-[0.02em] text-left mix-blend-difference z-10 rounded-3xl px-3 py-1 mt-[25%] ml-[19%] cursor-pointer border border-white/10`}
         onClick={() => router.push("projects#projects-toc")}
       >
-        view my work
+        <p>view my work</p>
       </motion.button>
 
 
@@ -98,15 +95,6 @@ export default function Hero() {
           <source src="https://cdn.briannavance.com/sam-vance-website/assembly.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
-        {/* <motion.button
-          variants={headingVariants(true)}
-          initial="hidden"
-          animate="show"
-          transition={{ delay: 0.3 }}
-          className="absolute left-[19.5%] top-[25%] text-3xl bg-black text-white tracking-[0.02em] rounded-sm px-2 py-1 cursor-pointer overflow-hidden"
-        >
-          view my work
-        </motion.button> */}
       </motion.div>
     </section>
   );
