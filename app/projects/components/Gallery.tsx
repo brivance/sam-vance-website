@@ -3,15 +3,17 @@
 import { AnimatePresence, Variants, motion } from "framer-motion";
 import { ReactNode, useState } from "react";
 
-export default function Gallery({ items }: { items: ReactNode[] }) {
+import { ExpandArrowRight } from "@/public/icons/ExpandArrowRight";
+
+export default function Gallery({ items, id }: { items: ReactNode[]; id?: string }) {
   const [index, setIndex] = useState(0);
   const [direction, setDirection] = useState(0); // -1 = left, 1 = right
 
-  const new_items = [
-    <div className="w-full h-full bg-red-500" />,
-    <div className="w-full h-full bg-blue-500" />,
-    <div className="w-full h-full bg-green-500" />,
-  ];
+  // const new_items = [
+  //   <div className="w-full h-full bg-red-500" />,
+  //   <div className="w-full h-full bg-blue-500" />,
+  //   <div className="w-full h-full bg-green-500" />,
+  // ];
 
   const next = () => {
     setDirection(1);
@@ -23,14 +25,14 @@ export default function Gallery({ items }: { items: ReactNode[] }) {
     setIndex((i) => (i - 1 + items.length) % items.length);
   };
 
-  interface SlideState {
-    x: number;
-    opacity: number;
-    position: "absolute" | "relative";
-  }
+  // interface SlideState {
+  //   x: number;
+  //   opacity: number;
+  //   position: "absolute" | "relative";
+  // }
 
   type Direction = number;
-  type SlideVariantFn = (direction: Direction) => SlideState;
+  // type SlideVariantFn = (direction: Direction) => SlideState;
 
   const variants: Variants = {
     enter: (direction: Direction) => ({
@@ -51,15 +53,15 @@ export default function Gallery({ items }: { items: ReactNode[] }) {
   };
 
   return (
-    <div className="relative w-full min-w-full max-w-4xl mx-auto flex flex-col items-center">
+    <div id={id} className="relative w-full min-w-full max-w-4xl mx-auto flex flex-col items-center">
 
       {/* ===== LEFT arrow (outside gallery) ===== */}
       <button
         onClick={prev}
-        className="absolute left-[25px] md:left-[-50px] top-1/2 -translate-y-1/2 z-10 
-                   px-3 pt-2 pb-1 bg-white/10 rounded hover:bg-white/20 cursor-pointer"
+        className="absolute left-[25px] md:left-[-100px] top-1/2 -translate-y-1/2 z-10 
+                   cursor-pointer"
       >
-        ◀
+        <ExpandArrowRight className="rotate-180 w-10 h-10 text-zinc-600 hover:text-zinc-500" />
       </button>
 
       {/* ===== GALLERY WINDOW ===== */}
@@ -84,10 +86,10 @@ export default function Gallery({ items }: { items: ReactNode[] }) {
       {/* ===== RIGHT arrow (outside gallery) ===== */}
       <button
         onClick={next}
-        className="absolute right-[25px] md:right-[-50px] top-1/2 -translate-y-1/2 z-10 
-                   px-3  pt-2 pb-1 bg-white/10 rounded hover:bg-white/20 cursor-pointer"
+        className="absolute right-[25px] md:right-[-100px] top-1/2 -translate-y-1/2 z-10 
+                cursor-pointer"
       >
-        ▶
+        <ExpandArrowRight className="w-10 h-10 text-zinc-600 hover:text-zinc-500" />
       </button>
 
       {/* ===== DOT INDICATORS ===== */}
@@ -100,7 +102,7 @@ export default function Gallery({ items }: { items: ReactNode[] }) {
                 setDirection(i > index ? 1 : -1);
                 setIndex(i);
               }}
-              className={`w-1.5 h-1.5 rounded-full transition-all 
+              className={`w-2 h-2 rounded-full transition-all cursor-pointer
                   ${i === index
                   ? "bg-white scale-110"
                   : "bg-white/30 hover:bg-white/50"}`}

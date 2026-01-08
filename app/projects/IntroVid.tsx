@@ -1,6 +1,6 @@
 "use client";
 
-import { cubicBezier, motion, useReducedMotion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useEffect, useRef } from "react";
 
 import { Josefin_Sans } from "next/font/google";
@@ -8,22 +8,8 @@ import { Josefin_Sans } from "next/font/google";
 const josefin = Josefin_Sans({ subsets: ["latin"] });
 
 export default function IntroVid() {
-  const r = useReducedMotion();
-  const EASE = cubicBezier(0.25, 0.46, 0.45, 0.94);
-
-  function headingVariants(button = false) {
-    return {
-      hidden: { x: r ? 0 : -200, opacity: r ? 1 : 0 },
-      show: { x: 0, opacity: 1, transition: { delay: button ? 0 : 0.2, duration: 0.9, ease: EASE } },
-    };
-  }
-
-  const videoVariants = {
-    hidden: { x: r ? 0 : 160, opacity: r ? 1 : 0 },
-    show: { x: 0, opacity: 1, transition: { duration: 0.9, ease: EASE, delay: 0.05 } },
-  };
-
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  const elementRef = useRef(null);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -37,7 +23,7 @@ export default function IntroVid() {
           video.pause();
         }
       },
-      { threshold: 0.25 } // play only if at least 25% visible
+      { threshold: 0.25 }
     );
 
     observer.observe(video);
@@ -45,33 +31,35 @@ export default function IntroVid() {
     return () => observer.disconnect();
   }, []);
 
+  const { scrollYProgress } = useScroll({
+    target: elementRef,
+    offset: ["start 75%", "end 25%"],
+  });
+
+  const imageY = useTransform(scrollYProgress, [0, 1], ["0%", "0%"]);
+  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "180%"]);
 
   return (
-
-    <section className={`${josefin.className} flex flex-col gap-4 justify-end relative max-w-7xl mt-100 isolate mx-44`}>
-      <motion.h1
-        variants={headingVariants()}
-        initial={{ opacity: 0, y: -30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{
-          duration: 2,
-          ease: [0.2, 0.8, 0.2, 1.0],
-        }}
-        viewport={{ once: false, amount: 0.80 }}
-        className={`relative text-4xl tracking-[0.02em] text-right text-white mix-blend-difference z-10 w-full`}
+    <section ref={elementRef} className={`${josefin.className} flex flex-col gap-4 justify-end relative max-w-7xl mt-60 isolate mx-44`}>
+      <motion.h2
+        initial={{ opacity: 0, x: -120 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        exit={{ opacity: 0, x: -120 }}
+        transition={{ duration: .8, ease: "easeOut" }}
+        viewport={{ once: false, amount: 0.5, margin: "50px 0px -200px 0px" }}
+        style={{ y: textY }}
+        className="relative z-10 text-start text-3xl"
       >
         Highlights from years of building, tinkering, and creating.
-      </motion.h1>
+      </motion.h2>
       <motion.div
-        variants={videoVariants}
-        initial={{ opacity: 0, y: 20, x: -10 }}
-        whileInView={{ opacity: 1, y: 0, x: 0 }}
-        transition={{
-          duration: 1,
-          ease: [0.2, 0.8, 0.2, 1.0],
-        }}
-        viewport={{ once: false, amount: 0.20 }}
-        className="relative overflow-hidden shadow-lg z-0"
+        initial={{ opacity: 0, x: 180 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        exit={{ opacity: 0, x: 180 }}
+        transition={{ duration: .8, ease: "easeOut" }}
+        viewport={{ once: false, amount: 0.3, margin: "50px 0px -200px 0px" }}
+        style={{ y: imageY }}
+        className="relative z-0"
       >
         <video
           className="w-full aspect-video object-cover pt-20"
