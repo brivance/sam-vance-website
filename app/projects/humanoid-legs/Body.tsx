@@ -8,7 +8,7 @@ export const Body = () => {
   return (
     <div className="flex flex-col gap-48 mt-40">
       <div className="flex flex-col gap-12">
-        <h2 id="initial-concept" className="text-7xl font-semibold text-zinc-500">initial concept</h2>
+        <h2 id="initial-concept" className="text-4xl md:text-7xl font-semibold text-zinc-500">initial concept</h2>
         <Gallery items={[
           <ProcessBox
             media={{ type: "video", src: "/projects/humanoid-legs/IMG_0504.mp4" }}
@@ -28,7 +28,7 @@ export const Body = () => {
         ]} />
       </div>
       <div className="flex flex-col gap-12">
-        <h2 id="process" className="text-7xl font-semibold text-zinc-500">process</h2>
+        <h2 id="process" className="text-4xl md:text-7xl font-semibold text-zinc-500">process</h2>
         <Gallery id="process" items={[
           <ProcessBox
             media={{ type: "image", src: "/projects/humanoid-legs/concept.jpg", alt: "Initial Concept" }}
@@ -48,7 +48,7 @@ export const Body = () => {
         ]} />
       </div>
       <div className="flex flex-col gap-12 mb-30">
-        <h2 id="results" className="text-7xl font-semibold text-zinc-500">results</h2>
+        <h2 id="results" className="text-4xl md:text-7xl font-semibold text-zinc-500">results</h2>
         <Gallery id="results" items={[
           <ProcessBox
             media={{ type: "image", src: "/projects/humanoid-legs/concept.jpg", alt: "Initial Concept" }}

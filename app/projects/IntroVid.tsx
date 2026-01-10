@@ -40,7 +40,7 @@ export default function IntroVid() {
   const textY = useTransform(scrollYProgress, [0, 1], ["0%", "180%"]);
 
   return (
-    <section ref={elementRef} className={`${josefin.className} flex flex-col gap-4 justify-end relative max-w-7xl mt-60 isolate mx-44`}>
+    <section ref={elementRef} className={`${josefin.className} flex flex-col gap-4 justify-end relative max-w-7xl mt-32 md:mt-60 isolate md:mx-44 mx-5`}>
       <motion.h2
         initial={{ opacity: 0, x: -120 }}
         whileInView={{ opacity: 1, x: 0 }}
@@ -48,7 +48,7 @@ export default function IntroVid() {
         transition={{ duration: .8, ease: "easeOut" }}
         viewport={{ once: false, amount: 0.5, margin: "50px 0px -200px 0px" }}
         style={{ y: textY }}
-        className="relative z-10 text-start text-3xl"
+        className="relative z-10 text-start text-xl md:text-3xl"
       >
         Highlights from years of building, tinkering, and creating.
       </motion.h2>
@@ -62,7 +62,7 @@ export default function IntroVid() {
         className="relative z-0"
       >
         <video
-          className="w-full aspect-video object-cover pt-20"
+          className="w-full aspect-video object-cover mt-22 md:mt-30"
           ref={videoRef}
           rel="preload"
           autoPlay

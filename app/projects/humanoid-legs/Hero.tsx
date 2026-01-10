@@ -6,7 +6,7 @@ export const Hero = () => {
 
   return (
     <div>
-      <h1 className="text-6xl md:text-8xl">humanoid legs</h1>
+      <h1 className="text-5xl md:text-8xl">humanoid legs</h1>
       <div className="flex md:flex-row flex-col md:gap-4 max-w-lg w-9/10 md:max-w-6xl md:mt-20 mt-10 justify-between mx-auto">
         <div className="flex flex-col gap-1 items-center md:w-1/3 w-full">
           <a href="#initial-concept" className="flex flex-col gap-1 text-start items-start bg-zinc-800 rounded-sm p-2 md:p-4 peer cursor-pointer transition-shadow duration-300 hover:shadow-[0_0_10px_rgba(225,225,225,0.5)]">

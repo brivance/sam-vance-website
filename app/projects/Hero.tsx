@@ -53,7 +53,7 @@ export default function Hero() {
         initial="hidden"
         animate="show"
         style={{ willChange: "transform" }}
-        className={`relative text-9xl font-medium tracking-[0.02em] text-left text-white pl-[10%] mix-blend-difference z-10`}
+        className={`relative text-6xl md:text-9xl font-medium tracking-[0.02em] text-left text-white pl-[10%] mix-blend-difference z-10`}
       >
         projects
       </motion.h1>
@@ -69,7 +69,7 @@ export default function Hero() {
           color: "#000",
         }}
         // style={{ willChange: "transform" }}
-        className={`relative text-3xl bg-white text-black tracking-[0.02em] text-left mix-blend-difference z-10 rounded-3xl px-3 py-1 mt-[25%] ml-[19%] cursor-pointer border border-white/10`}
+        className={`relative text-2xl md:text-3xl bg-white text-black tracking-[0.02em] text-left mix-blend-difference z-10 rounded-3xl px-3 py-1 mt-[25%] ml-9 md:ml-[19%] cursor-pointer border border-white/10`}
         onClick={() => router.push("projects#projects-toc")}
       >
         <p>view my work</p>

@@ -52,17 +52,17 @@ export default function TOC() {
     <div id="projects-toc" className="relative">
 
       <motion.section
-        className={`mx-auto max-w-7xl mt-80 px-10 py-10 mb-80 ${josefin.className} text-center`}
+        className={`mx-auto max-w-7xl mt-34 md:mt-80 px-10 py-10 mb-40 md:mb-80 ${josefin.className} text-center`}
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 1.25, ease: "easeOut" }}
       >
-        <h1 className="text-5xl font-bold tracking-wide mb-20">
+        <h1 className="text-3xl md:text-5xl font-bold tracking-wide mb-20">
           Featured Projects
         </h1>
 
         {/* Project titles */}
-        <div className="flex flex-col gap-14 text-3xl w-fit mx-auto">
+        <div className="flex flex-col gap-14 text-xl md:text-3xl w-fit mx-auto">
           {projects.map((p, i) => (
             <span
               key={p.title}

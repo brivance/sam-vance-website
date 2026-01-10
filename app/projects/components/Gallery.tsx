@@ -62,7 +62,7 @@ export default function Gallery({ items, id }: { items: ReactNode[]; id?: string
       </button>
 
       {/* ===== GALLERY WINDOW ===== */}
-      <div className="relative flex items-center justify-center h-[200px] md:h-[500px] md:min-w-full w-9/10 md:w-full overflow-hidden">
+      <div className="relative flex items-center justify-center h-[400px] md:h-[500px] md:min-w-full w-9/10 md:w-full overflow-hidden">
         <AnimatePresence custom={direction} mode="popLayout">
           <motion.div
             key={index}
