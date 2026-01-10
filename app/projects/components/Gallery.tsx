@@ -35,20 +35,17 @@ export default function Gallery({ items, id }: { items: ReactNode[]; id?: string
   // type SlideVariantFn = (direction: Direction) => SlideState;
 
   const variants: Variants = {
-    enter: (direction: Direction) => ({
-      x: direction > 0 ? 150 : -150,
+    enter: (dir: number) => ({
+      x: dir > 0 ? "100%" : "-100%",
       opacity: 0,
-      position: "absolute",
     }),
     center: {
-      x: 0,
+      x: "0%",
       opacity: 1,
-      position: "relative",
     },
-    exit: (direction: Direction) => ({
-      x: direction > 0 ? -150 : 150,
+    exit: (dir: number) => ({
+      x: dir > 0 ? "-100%" : "100%",
       opacity: 0,
-      position: "absolute",
     }),
   };
 
@@ -65,8 +62,8 @@ export default function Gallery({ items, id }: { items: ReactNode[]; id?: string
       </button>
 
       {/* ===== GALLERY WINDOW ===== */}
-      <div className="relative flex items-center justify-center h-[200px] md:h-[500px] md:min-w-full w-9/10 md:w-full">
-        <AnimatePresence custom={direction} mode="wait">
+      <div className="relative flex items-center justify-center h-[200px] md:h-[500px] md:min-w-full w-9/10 md:w-full overflow-hidden">
+        <AnimatePresence custom={direction} mode="popLayout">
           <motion.div
             key={index}
             custom={direction}
@@ -74,7 +71,7 @@ export default function Gallery({ items, id }: { items: ReactNode[]; id?: string
             initial="enter"
             animate="center"
             exit="exit"
-            transition={{ duration: 0.35 }}
+            transition={{ duration: 1 }}
             layout
             className="w-full h-full flex items-center justify-center flex-none"
           >

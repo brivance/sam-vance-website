@@ -1,14 +1,13 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { Josefin_Sans, MuseoModerno } from "next/font/google";
 
 import Image from "next/image";
 import Link from "next/link";
 import { Menu } from "@/public/icons/Menu";
+import { MuseoModerno } from "next/font/google";
 import { useState } from "react";
 
-const josefin = Josefin_Sans({ subsets: ["latin"], weight: "400" });
 const moderno = MuseoModerno({ subsets: ["latin"], weight: "400" });
 const projectLinks = [
   { name: "humanoid legs", href: "/projects/humanoid-legs" },
@@ -98,7 +97,7 @@ export default function Header() {
                 className="fixed inset-0 z-40"
                 onClick={() => setMenuOpen(false)}
               />
-              <div className="absolute right-6 mt-2 w-40 bg-dark-brown rounded-lg shadow-lg z-50">
+              <div className="absolute right-6 mt-2 w-40 bg-dark-brown rounded-lg shadow-lg z-50 bg-blackish ">
                 <ul className="flex flex-col p-4 space-y-3 text-lg">
                   <li>
                     <Link
@@ -120,7 +119,7 @@ export default function Header() {
                   </li> */}
                   <li>
                     <Link
-                      href="/"
+                      href="/projects"
                       onClick={() => setMenuOpen(false)}
                       className="block hover:scale-110 transition-transform duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 rounded"
                     >

@@ -39,28 +39,6 @@ const phrases = [
 function Hero() {
   const router = useRouter();
   const [index, setIndex] = useState(0);
-  const [playIntro, setPlayIntro] = useState<boolean | null>(null);
-  const [hasLoaded, setHasLoaded] = useState(false);
-
-  useEffect(() => {
-    const lastShown = localStorage.getItem("introTimestamp");
-    const oneDay = 24 * 60 * 60 * 1000;
-
-    if (!lastShown || Date.now() - Number(lastShown) > oneDay) {
-      setPlayIntro(true);
-      localStorage.setItem("introTimestamp", Date.now().toString());
-    } else {
-      setPlayIntro(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setHasLoaded(true);
-      // setPlayIntro(false);
-    }, 5000); // 5s initial delay
-    return () => clearTimeout(timer);
-  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -69,37 +47,38 @@ function Hero() {
     return () => clearInterval(interval);
   }, [phrases.length]);
 
-  if (playIntro === null) return null;
+  // if (playIntro === null) return null;
 
   return (
-    <section className="relative h-[100vh] font-sans font-medium pt-20 pb-14">
-      <div className="flex flex-col px-[5%] mt-[10vh] w-full">
-        <div className="flex justify-center gap-14 w-full">
-          <div className="flex flex-col justify-center pb-3 pt-4 text-center">
+    <section className="relative h-[100vh] font-sans font-medium pt-20 pb-0 md:pb-14">
+      <div className="flex flex-col px-[5%] mt-[3vh] md:mt-[10vh] w-full">
+        <div className="flex md:flex-row flex-col justify-center gap-14 w-full">
+          <div className="flex flex-col justify-center items-center pb-3 pt-4 text-center">
             <motion.div
-              initial={{ opacity: 1, x: playIntro ? 125 : 80, y: 80 }} // Start slightly above and invisible
-              animate={{ opacity: 1, x: 0, y: 0 }}
-              transition={{ delay: playIntro ? 2.2 : 0, duration: playIntro ? 2.5 : .7 }}
+              initial={{ opacity: 0, x: 140 }} // Start slightly above and invisible
+              transition={{ delay: 0, duration: .7 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: false, amount: 0.4 }}
             >
-              <span className={`text-9xl text-center whitespace-nowrap`}>
-                <Typewriter text="sam vance" playIntro={playIntro} />
+              <span className={`text-6xl md:text-9xl text-center whitespace-nowrap`}>
+                <Typewriter text="sam vance" />
               </span>
             </motion.div>
             <motion.div
-              initial={{ opacity: 0, y: 0 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: playIntro ? 3.7 : .5 }}
+              initial={{ opacity: 0 }}
+              transition={{ delay: .5 }}
+              whileInView={{ opacity: 1 }}
             >
               <AnimatePresence mode="wait">
                 <motion.h2
                   key={phrases[index]}
-                  className={`mt-4 text-4xl text-center tracking-wider`}
+                  className={`mt-4 text-2xl md:text-4xl text-center tracking-wider`}
                   initial={{ opacity: 0, y: 0, x: 0 }}
                   animate={{ opacity: 1, y: 0, x: 0 }}
                   exit={{ opacity: 0, y: 0 }}
                   transition={{
-                    opacity: { duration: playIntro ? .5 : 0.8, ease: "easeInOut" },
-                    y: { duration: playIntro ? .5 : 0.8, ease: "easeInOut" },
+                    opacity: { duration: 0.8, ease: "easeInOut" },
+                    y: { duration: 0.8, ease: "easeInOut" },
                   }}
                 >
                   {phrases[index]}
@@ -108,40 +87,38 @@ function Hero() {
             </motion.div>
           </div>
           <motion.div
-            initial={{ opacity: 0, y: 40, x: 100 }}
-            animate={{ opacity: 1, y: 0, x: 0 }}
-            transition={{ delay: playIntro ? 2.2 : 0, duration: playIntro ? 2.5 : 0.75, ease: "easeOut" }}
+            initial={{ opacity: 0, x: -140 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0, duration: 0.75, ease: "easeOut" }}
             className=""
-          // viewport={{ once: false, amount: 0 }}
+            viewport={{ once: false, amount: 0 }}
           >
             <Image
               src="/sam-vance2.png"
               alt="example"
-              width={380}
-              height={380}
-              className="hover:scale-105 transition-transform duration-500 min-w-80"
+              width={300}
+              height={300}
+              className="mx-auto hover:scale-105 transition-transform duration-500 md:min-w-100 md:mb-0 mb-10"
             />
           </motion.div>
         </div>
         <div className="flex flex-col">
           <motion.div
             className="mt-[8%] text-center"
-            initial={{ opacity: 0, y: playIntro ? 0 : 100, x: playIntro ? 0 : 50 }}
-            animate={{ opacity: 1, y: 0, x: 0 }}
-            // exit={{ opacity: 0, y: 100, x: 50 }}
-            transition={{ delay: playIntro ? 4 : 0, duration: .75, ease: "easeOut" }}
-          // viewport={{ once: false, amount: 0.5 }}
+            initial={{ opacity: 0, y: -10 }}
+            transition={{ delay: 0, duration: .75, ease: "easeOut" }}
+            whileInView={{ opacity: 1, x: 0 }}
           >
-            <button className={`cursor-pointer text-3xl font-light rounded-4xl hover:border-gray-300 py-2 px-4 border border-white/10 transition-all hover:font-medium shadow-[#faf8ed]/30 shadow-[0_0_6px_rgba(255,255,255,0.25)] 
-  hover:bg-[#faf8ed] hover:text-black hover:scale-105 duration-400 tracking-tighter
-  hover:shadow-[0_0_25px_rgba(255,255,255,0.4)]`}
+            <button className={`cursor-pointer text-2xl md:mb-0 mb-4 md:text-3xl font-light rounded-4xl hover:border-gray-300 py-2 px-4 border border-white/10 transition-all hover:font-medium shadow-[#faf8ed]/30 shadow-[0_0_6px_rgba(255,255,255,0.25)] 
+          hover:bg-[#faf8ed] hover:text-black hover:scale-105 duration-400 tracking-tighter
+            hover:shadow-[0_0_25px_rgba(255,255,255,0.4)]`}
               onClick={() => router.push('/projects')}
             >
               check out my projects
             </button>
           </motion.div>
           <div className="relative z-10 mx-auto md:mt-14 max-w-5xl px-6">
-            <ProductCarousel slides={slides} hasLoaded={hasLoaded} playIntro={playIntro} />
+            <ProductCarousel slides={slides} />
           </div>
         </div>
       </div>
@@ -153,15 +130,15 @@ function Body() {
   return (
     <section>
       <motion.section
-        className="mt-40"
+        className="mt-0 md:mt-40"
         initial={{ opacity: 0, y: 60 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.2, ease: "easeOut" }}
         viewport={{ once: false, amount: 0.60 }} // only triggers once when ~30% visible
       >
-        <div className="flex gap-5 mx-[15%] py-20 text-[2.75rem] my-30">
-          <div className={` text-gray-600 text-[200px] -mt-20 mr-5`}>&ldquo;</div>
-          <div className={`flex flex-col leading-relaxed gap-14`}>
+        <div className="flex gap-2 md:gap-5 mx-[5%] md:mx-[15%] py-20 text-[2.75rem] my-14 md:my-30 mb-30">
+          <div className={` text-gray-600 text-8xl md:text-[200px] md:-mt-20 mr-1 md:mr-5`}>&ldquo;</div>
+          <div className={`text-xl md:text-4xl flex flex-col leading-relaxed gap-8 md:gap-14`}>
             <span>There is no chance, no destiny, no fate, that can circumvent, or hinder, or control the firm resolve of a determined soul.<span className="relative inline-block h-[0.9em] overflow-hidden align-baseline leading-none">
               <span
                 className={`block text-gray-600 text-[200px] leading-none -translate-y-[0.24em]`}
@@ -197,14 +174,14 @@ function OverlapSection() {
 
   // Parallax transform — image moves slower
   const imageY = useTransform(scrollYProgress, [0, 1], ["0%", "0%"]);
-  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "40%"]);
 
   return (
     <section
       ref={ref}
       className="relative flex items-center justify-center"
     >
-      <div className="flex items-center justify-center w-[80%] relative">
+      <div className="flex flex-col md:flex-row items-center justify-center relative">
         {/* Text side */}
         <motion.div
           initial={{ opacity: 0, x: -120 }}
@@ -212,9 +189,9 @@ function OverlapSection() {
           transition={{ duration: .8, ease: "easeOut" }}
           viewport={{ once: false, amount: 0.4 }}
           style={{ y: textY }}
-          className="relative z-10 w-3/4 text-center -mt-30"
+          className="relative z-10 md:w-3/4 text-center -mt-30"
         >
-          <p className="text-[1.75rem] font-bold leading-tight text-gray-100">
+          <p className="text-xl md:text-[1.75rem] font-bold leading-tight text-gray-100">
             I love to build robots and I am so smart my name is Sam Vance and one day you will know me because I am famous. I am going to make a company that changes the world and therefore become very rich and buy a huge mansion wherever I desire. This is an ambition but also I know it will come true so it is also a destiny.
           </p>
         </motion.div>
@@ -226,7 +203,7 @@ function OverlapSection() {
           transition={{ duration: .8, ease: "easeOut" }}
           viewport={{ once: false, amount: 0.4 }}
           style={{ y: imageY }}
-          className="relative -ml-40 w-3/4 z-0"
+          className="relative md:-ml-40 w-3/4 z-0 mt-26 md:mt-0"
         >
           <Image
             src="/sam-forest2.png"
@@ -257,9 +234,9 @@ function OverlapSection2() {
   return (
     <section
       ref={ref}
-      className="relative flex items-center justify-center py-32 overflow-visible pb-40"
+      className="relative flex items-center justify-center overflow-visible mb-10 md:mb-40 py-26 md:py-32"
     >
-      <div className="flex items-center justify-center w-[80%] relative">
+      <div className="flex flex-col md:flex-row items-center justify-center relative">
         {/* Text side */}
         <motion.div
           initial={{ opacity: 0, x: -120 }}
@@ -267,7 +244,7 @@ function OverlapSection2() {
           transition={{ duration: .8, ease: "easeOut" }}
           viewport={{ once: false, amount: 0.4 }}
           style={{ y: imageY }}
-          className="relative z-0 w-3/4 text-center"
+          className="hidden md:block relative z-0 w-3/4 text-center"
         >
           <Image
             src="/sam-meadows.png"
@@ -286,12 +263,31 @@ function OverlapSection2() {
           transition={{ duration: .8, ease: "easeOut" }}
           viewport={{ once: false, amount: 0.4 }}
           style={{ y: textY }}
-          className="relative -ml-40 w-3/4 z-10 -mt-20"
+          className="relative md:-ml-40 w-full md:w-3/4 z-10 -mt-20"
         >
-          <p className="text-[1.75rem] font-bold leading-tight text-gray-100">
+          <p className="text-xl md:text-[1.75rem] font-bold leading-tight text-gray-100 text-center">
             I love to build robots and I am so smart my name is Sam Vance and one day you will know me because I am famous. I am going to make a company that changes the world and therefore become very rich and buy a huge mansion wherever I desire. This is an ambition but also I know it will come true so it is also a destiny.
           </p>
         </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, x: -120 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: .8, ease: "easeOut" }}
+          viewport={{ once: false, amount: 0.4 }}
+          style={{ y: imageY }}
+          className="block md:hidden relative z-0 w-3/4 text-center mt-32 mb-12"
+        >
+          <Image
+            src="/sam-meadows.png"
+            alt="Profile"
+            width={800}
+            height={600}
+            className="rounded-lg object-cover"
+          />
+
+        </motion.div>
+
       </div>
     </section>
   );
@@ -299,7 +295,7 @@ function OverlapSection2() {
 
 type Slide = { src: string; alt: string, initialDelay: number };
 
-function ProductCarousel({ slides, hasLoaded, playIntro }: { slides: Slide[], hasLoaded: boolean, playIntro: boolean | null }) {
+function ProductCarousel({ slides }: { slides: Slide[] }) {
 
   function useIsMobile(breakpoint = 768) {
     const [isMobile, setIsMobile] = useState(false);
@@ -340,7 +336,7 @@ function ProductCarousel({ slides, hasLoaded, playIntro }: { slides: Slide[], ha
   const offset = -(index * (CARD_WIDTH + GAP));
 
   return (
-    <div className="relative pb-35">
+    <div className="relative pb-0 md:pb-35">
       {/* Stage */}
       {/* <motion.div
         // Outer wrapper handles visibility (fade in/out) when scrolling
@@ -361,7 +357,7 @@ function ProductCarousel({ slides, hasLoaded, playIntro }: { slides: Slide[], ha
           <motion.div
             className="flex gap-6"
             animate={{ x: offset }}
-            transition={{ delay: playIntro ? 3 : 0, duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+            transition={{ delay: 0, duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
             aria-live="polite"
           >
             {/* Render extra cards for smooth infinite scrolling */}
@@ -372,7 +368,7 @@ function ProductCarousel({ slides, hasLoaded, playIntro }: { slides: Slide[], ha
                 initial={{ opacity: 0, x: 200 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{
-                  delay: !playIntro ? card.initialDelay - 4.4 : card.initialDelay,
+                  delay: card.initialDelay - 4.4,
                   duration: 0.4,
                   ease: [0.2, 0.8, 0.2, 1.0],
                 }}
