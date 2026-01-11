@@ -285,9 +285,7 @@ function OverlapSection2() {
             height={600}
             className="rounded-lg object-cover"
           />
-
         </motion.div>
-
       </div>
     </section>
   );
