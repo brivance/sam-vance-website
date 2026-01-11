@@ -1,36 +1,36 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Instructions for editing Sam Vance Website</title>
+  </head>
+  <body>
+    <p>To edit project content:</p>
+    <ol>
+      <li>Each project content, go to the page.tsx file inside the project folder. (Ex. Projects/humanoid-legs/page.tsx)</li>
+      <li>Edit the content within heroProps and galleryTemplateProps</li>
+    </ol>
 
-## Getting Started
+    <p>To add a project:</p>
+    <ol>
+      <li>Add a new folder within the projects folder (named after your project) (ex. Projects/new-project)</li>
+      <li>Add a new page.tsx within this project folder (ex. Projects/new-project/page.tsx)</li>
+      <li>Copy a template from another project (you can use projects/humanoid-legs/page.tsx) and paste it into your new project’s page.tsx.</li>
+      <li>Change the content (heroProps and galleryTemplateProps) to match your project. Also make sure to change the title from the project file you copied to your new project.</li>
+    </ol>
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+    <p>To upload a new photo:</p>
+    <ol>
+      <li>In the terminal in the project</li>
+      <li>Make sure you are in the sam-vance-website project folder</li>
+      <li>
+        Run this command:
+        <ul>
+          <li><code>node upload.ts ./path/to/your/image.mp4 sam-vance-website/new-image-title.mp4</code></li>
+        </ul>
+      </li>
+      <li>You will get an image url to use anywhere in the project.</li>
+    </ol>
+  </body>
+</html>
