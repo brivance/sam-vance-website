@@ -276,7 +276,7 @@ function OverlapSection2() {
           transition={{ duration: .8, ease: "easeOut" }}
           viewport={{ once: false, amount: 0.4 }}
           style={{ y: imageY }}
-          className="block md:hidden relative z-0 w-3/4 text-center mt-32 mb-12"
+          className="block md:hidden relative z-0 w-3/4 text-center mt-22 md:mt-32 mb-12"
         >
           <Image
             src="/sam-meadows.png"
@@ -337,19 +337,6 @@ function ProductCarousel({ slides }: { slides: Slide[] }) {
 
   return (
     <div className="relative pb-0 md:pb-35">
-      {/* Stage */}
-      {/* <motion.div
-        // Outer wrapper handles visibility (fade in/out) when scrolling
-        initial={{ opacity: 0, y: hasLoaded ? 60 : 0 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: false, amount: 0.4 }}
-        transition={{ duration: 0.8, ease: "easeInOut" }}
-        onViewportLeave={(e) => {
-          // optional: you can log when it fades out
-          // console.log("Gallery scrolled out of view");
-        }}
-        className="relative w-full max-w-[976px] mx-auto overflow-hidden"
-      > */}
       <div className="flex justify-center">
         {/* 5 cards * 176px + 4 gaps * 24px = 976px */}
         {/* 2 cards * 144px + 1 gaps * 24px = 312px */}

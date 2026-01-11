@@ -9,12 +9,6 @@ export default function Gallery({ items, id }: { items: ReactNode[]; id?: string
   const [index, setIndex] = useState(0);
   const [direction, setDirection] = useState(0); // -1 = left, 1 = right
 
-  // const new_items = [
-  //   <div className="w-full h-full bg-red-500" />,
-  //   <div className="w-full h-full bg-blue-500" />,
-  //   <div className="w-full h-full bg-green-500" />,
-  // ];
-
   const next = () => {
     setDirection(1);
     setIndex((i) => (i + 1) % items.length);
@@ -31,7 +25,7 @@ export default function Gallery({ items, id }: { items: ReactNode[]; id?: string
   //   position: "absolute" | "relative";
   // }
 
-  type Direction = number;
+  // type Direction = number;
   // type SlideVariantFn = (direction: Direction) => SlideState;
 
   const variants: Variants = {

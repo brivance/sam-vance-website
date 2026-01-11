@@ -12,8 +12,7 @@ type MediaVideo = {
   src: string;
 };
 
-type Media = MediaImage | MediaVideo;
-
+export type Media = MediaImage | MediaVideo;
 
 export const ProcessBox = ({
   media,

@@ -3,6 +3,8 @@
 import { AnimatePresence, motion } from "framer-motion";
 
 import Image from "next/image";
+import { KeyboardArrowDown } from "@/public/icons/KeyboardArrowDown";
+import { KeyboardDoubleArrowDown } from "@/public/icons/KeyboardDoubleArrowDown";
 import Link from "next/link";
 import { Menu } from "@/public/icons/Menu";
 import { MuseoModerno } from "next/font/google";
@@ -18,6 +20,7 @@ const projectLinks = [
 export default function Header() {
   const [hover, setHover] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [projectsOpen, setProjectsOpen] = useState(false);
   return (
     <div className={`${moderno.className} font-semibold absolute top-0 inset-x-0 z-50`}>
       <div className={`justify-between mx-auto flex text-3xl items-center px-10 py-4`}>
@@ -37,11 +40,6 @@ export default function Header() {
                 <h2>home</h2>
               </Link>
             </li>
-            {/* <li>
-              <Link href="/" className="inline-block hover:scale-110 transition-transform duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 rounded">
-                timeline
-              </Link>
-            </li> */}
             <li className="relative group" onMouseEnter={() => setHover(true)}
               onMouseLeave={() => setHover(false)}>
               <Link
@@ -76,7 +74,7 @@ export default function Header() {
               </AnimatePresence>
             </li>
             <li>
-              <Link href="/contact" className="inline-block hover:scale-110 transition-transform duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 rounded">
+              <Link href="/contact" className="inline-block focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 rounded">
                 <h2>contact</h2>
               </Link>
             </li>
@@ -97,40 +95,53 @@ export default function Header() {
                 className="fixed inset-0 z-40"
                 onClick={() => setMenuOpen(false)}
               />
-              <div className="absolute right-6 mt-2 w-40 bg-dark-brown rounded-lg shadow-lg z-50 bg-blackish ">
+              <div className="absolute right-6 mt-2 w-50 bg-dark-brown rounded-lg shadow-lg z-50 bg-blackish ">
                 <ul className="flex flex-col p-4 space-y-3 text-lg">
                   <li>
                     <Link
                       href="/"
                       onClick={() => setMenuOpen(false)}
-                      className="block hover:scale-110 transition-transform duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 rounded"
+                      className="block focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 rounded"
                     >
                       <h2>home</h2>
                     </Link>
                   </li>
-                  {/* <li>
-                    <Link
-                      href="/"
-                      onClick={() => setMenuOpen(false)}
-                      className="block hover:scale-110 transition-transform duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 rounded"
-                    >
-                      timeline
-                    </Link>
-                  </li> */}
                   <li>
-                    <Link
-                      href="/projects"
-                      onClick={() => setMenuOpen(false)}
-                      className="block hover:scale-110 transition-transform duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 rounded"
+                    <button
+                      onClick={() => setProjectsOpen(!projectsOpen)}
+                      className="flex items-center justify-between w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 rounded cursor-pointer"
+                      aria-expanded={projectsOpen}
                     >
                       <h2>projects</h2>
-                    </Link>
+                      <span>
+                        {projectsOpen ? <KeyboardArrowDown className="rotate-180 h-5 w-5" /> : <KeyboardArrowDown className="h-5 w-5" />}
+                      </span>
+                    </button>
+
+                    {projectsOpen && (
+                      <ul className="mt-2 ml-4 flex flex-col space-y-2 text-base">
+                        {projectLinks.map((project) => (
+                          <li key={project.href}>
+                            <Link
+                              href={project.href}
+                              onClick={() => {
+                                setMenuOpen(false);
+                                setProjectsOpen(false);
+                              }}
+                              className="block focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 rounded"
+                            >
+                              {project.name}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
                   </li>
                   <li>
                     <Link
                       href="/contact"
                       onClick={() => setMenuOpen(false)}
-                      className="block hover:scale-110 transition-transform duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 rounded"
+                      className="block focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 rounded"
                     >
                       <h2>contact me</h2>
                     </Link>
